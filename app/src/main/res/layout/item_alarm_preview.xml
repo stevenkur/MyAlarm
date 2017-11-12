@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/pure_white"
+    android:layout_marginTop="10sp"
+    android:layout_marginLeft="10sp"
+    android:layout_marginRight="10sp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvAlarmHour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="30dp"
+            android:text="08"
+            android:textAlignment="viewEnd"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:layout_weight="4"
+            android:textAlignment="center"
+            android:textSize="30dp"/>
+        <TextView
+            android:id="@+id/tvAlarmMinute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textSize="30dp"
+            android:textAlignment="viewStart"
+            android:text="30"/>
+        <TextView
+            android:id="@+id/tvAlarmTimeZone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AM"
+            android:layout_weight="2"
+            android:textSize="15dp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvAlarmDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mon, Nov 13"
+        android:textAlignment="viewEnd"
+        android:paddingRight="@dimen/activity_horizontal_margin"/>
+    <TextView
+        android:id="@+id/tvAlarmStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Active"
+        android:textAlignment="textEnd"
+        android:paddingRight="@dimen/activity_horizontal_margin"/>
+</LinearLayout>
