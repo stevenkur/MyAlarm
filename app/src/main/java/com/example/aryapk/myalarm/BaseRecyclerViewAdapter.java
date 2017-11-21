@@ -36,10 +36,10 @@ public abstract class BaseRecyclerViewAdapter<E> extends RecyclerView.Adapter<Re
 
     public E getItem(int i) {
         int l = items.size();
-        if(i >= l){
-            i = l-1;
+        if (i >= l) {
+            i = l - 1;
         }
-        if(i < 0){
+        if (i < 0) {
             i = 0;
         }
         return items.get(i);

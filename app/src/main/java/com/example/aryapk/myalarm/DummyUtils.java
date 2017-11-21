@@ -9,28 +9,27 @@ import java.util.ArrayList;
  */
 
 public class DummyUtils {
-    private String[] dummyHour = {"01","12","04"};
-    private String[] dummyMinute = {"30","45","00"};
-    private String[] dummyDate = {"Mon, Nov 13","Tue, Nov 7","Sun, Nov 12"};
+    private String[] dummyHour = {"01", "12", "04"};
+    private String[] dummyMinute = {"30", "45", "00"};
+    private String[] dummyDate = {"Mon, Nov 13", "Tue, Nov 7", "Sun, Nov 12"};
 
     public ArrayList<AlarmOverviewModel> dummyModel = new ArrayList<>();
 
-    public ArrayList<AlarmOverviewModel> getDummyModel(){
+    public ArrayList<AlarmOverviewModel> getDummyModel() {
         setDummyModel();
         return dummyModel;
     }
 
-    private void setDummyModel(){
-        for (int i = 0;i<=2;i++){
+    private void setDummyModel() {
+        for (int i = 0; i <= 2; i++) {
             AlarmOverviewModel item = new AlarmOverviewModel();
             item.setHour(dummyHour[i]);
             item.setMinute(dummyMinute[i]);
             item.setDate(dummyDate[i]);
-            if (i%2 == 0){
+            if (i % 2 == 0) {
                 item.setSide("AM");
                 item.setStatus("Active");
-            }
-            else {
+            } else {
                 item.setSide("PM");
                 item.setStatus("Inactive");
             }
