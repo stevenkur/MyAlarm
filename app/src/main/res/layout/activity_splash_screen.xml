@@ -8,10 +8,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="139dp"
+        android:gravity="center"
+        android:layout_marginTop="22dp"
         android:id="@+id/llLogo"
         android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
         <ImageView

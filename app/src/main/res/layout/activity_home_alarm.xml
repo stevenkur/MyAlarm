@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home_alarm"
     android:layout_width="match_parent"
@@ -19,6 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <DigitalClock
+            android:id="@+id/DGMainClock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/blue_500"
+            android:textSize="25sp" />
+
         <Button
             android:id="@+id/btnNewAlarm"
             android:layout_width="match_parent"
@@ -31,5 +40,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvListAlarm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>
