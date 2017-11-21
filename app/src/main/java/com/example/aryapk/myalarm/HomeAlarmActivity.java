@@ -22,6 +22,7 @@ public class HomeAlarmActivity extends AppCompatActivity {
     ArrayList<AlarmOverviewModel> modelAlarmOverview = new ArrayList<>();
     HomeAlarmAdapter adapter;
     View v;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class HomeAlarmActivity extends AppCompatActivity {
         dummyAlarm();
     }
 
-    private void dummyAlarm(){
+    private void dummyAlarm() {
         rvListAlarm.setLayoutManager(new LinearLayoutManager(this));
         DummyUtils utils = new DummyUtils();
         modelAlarmOverview = utils.getDummyModel();
