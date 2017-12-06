@@ -25,7 +25,7 @@ public class HomeAlarmActivity extends AppCompatActivity {
     RecyclerView rvListAlarm;
     @Bind(R.id.btnNewAlarm)
     Button btnNewAlarm;
-    ArrayList<AlarmOverviewModel> modelAlarmOverview = new ArrayList<>();
+    ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
     HomeAlarmAdapter adapter;
     Context activity;
     View v;
@@ -49,17 +49,23 @@ public class HomeAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_alarm);
         ButterKnife.bind(this);
         activity = this;
+        if (getIntent() != null){
+            alarmList = (ArrayList<AlarmOverviewModel>) getIntent().getSerializableExtra("alarm");
+        }
         btnNewAlarm.setOnClickListener(option);
-        dummyAlarm();
+
     }
 
-
+    private void setAlarm(){
+        rvListAlarm.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new HomeAlarmAdapter(alarmList);
+    }
 
     private void dummyAlarm() {
         rvListAlarm.setLayoutManager(new LinearLayoutManager(this));
         DummyUtils utils = new DummyUtils();
-        modelAlarmOverview = utils.getDummyModel();
-        adapter = new HomeAlarmAdapter(modelAlarmOverview);
+        alarmList = utils.getDummyModel();
+        adapter = new HomeAlarmAdapter(alarmList);
         rvListAlarm.setAdapter(adapter);
     }
 }
