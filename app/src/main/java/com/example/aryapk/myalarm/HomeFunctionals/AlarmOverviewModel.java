@@ -12,6 +12,17 @@ public class AlarmOverviewModel implements Serializable {
     private String side;
     private String date;
     private String status;
+    private Integer countDown;
+    private String name;
+
+
+    public Integer getCountDown() {
+        return countDown;
+    }
+
+    public void setCountDown(Integer countDown) {
+        this.countDown = countDown;
+    }
 
     public String getHour() {
         return hour;
@@ -51,5 +62,13 @@ public class AlarmOverviewModel implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
