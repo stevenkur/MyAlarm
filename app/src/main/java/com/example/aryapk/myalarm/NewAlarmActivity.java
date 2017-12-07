@@ -78,6 +78,9 @@ public class NewAlarmActivity extends AppCompatActivity {
         btnSaveAlarm.setOnClickListener(option);
         btnCancel.setOnClickListener(option);
 
+    }
+
+    private void getAlarm() {
         Cursor result = dbMaster.selectAll();
         AlarmOverviewModel newAlarm = new AlarmOverviewModel();
         if (result.getCount() > 0){
@@ -99,7 +102,6 @@ public class NewAlarmActivity extends AppCompatActivity {
             }
         }
     }
-
     private void getSound(){
         /*try {
             showFileChooser();
