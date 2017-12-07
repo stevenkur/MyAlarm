@@ -1,8 +1,12 @@
 package com.example.aryapk.myalarm;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -11,11 +15,14 @@ import android.view.WindowManager;
 import com.example.aryapk.myalarm.DBAlarm.DatabaseMaster;
 import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
 
+import java.util.ArrayList;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static int splashInterval = 2000;
     private DatabaseMaster dbMaster = new DatabaseMaster(SplashScreenActivity.this);
-    private AlarmOverviewModel model = new AlarmOverviewModel();
+    private ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
+    private static final int PERMISSION_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +37,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                requestStoragePermission();
+                requestWakeLock();
                 Bundle args = new Bundle();
-                args.putSerializable("alarm",model);
-                Intent i = new Intent(SplashScreenActivity.this,SelectModeActivity.class);
+                args.putSerializable("alarm",alarmList);
+                Intent i = new Intent(SplashScreenActivity.this,HomeAlarmActivity.class);
                 i.putExtras(args);
                 startActivity(i);
                 finish();
@@ -42,6 +51,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void getAlarm(){
         Cursor result = dbMaster.selectAll();
+        AlarmOverviewModel model = new AlarmOverviewModel();
         if (result.getCount() > 0){
             for (int i = 0;i<result.getCount();i++){
                 if(i==0){
@@ -57,7 +67,24 @@ public class SplashScreenActivity extends AppCompatActivity {
                 model.setStatus(result.getString(result.getColumnIndex("status")));
                 model.setCountDown(result.getInt(result.getColumnIndex("countDown")));
                 model.setName(result.getString(result.getColumnIndex("name")));
+                alarmList.add(model);
             }
         }
+    }
+
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+    }
+
+    private void requestWakeLock() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WAKE_LOCK}, PERMISSION_CODE);
     }
 }
