@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".NewAlarmActivity" />
         <activity android:name=".SelectModeActivity" />
-        <activity android:name=".HomeReminderActivity"></activity>
+        <activity android:name=".HomeReminderActivity" />
+        <activity android:name=".CountDownActivity"></activity>
     </application>
 
 </manifest>
