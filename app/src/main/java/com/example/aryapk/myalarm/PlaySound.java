@@ -14,11 +14,11 @@ import java.io.IOException;
  * Created by Aryapk on 12/6/2017.
  */
 
-public class playSound extends AsyncTask<AlarmTurnOn, Void, Void> {
+public class PlaySound extends AsyncTask<AlarmTurnOn, Void, Void> {
 
     public Context mContext;
     private AlarmTurnOn alarmToSet;
-    public playSound (Context context){
+    public PlaySound(Context context){
         mContext = context;
     }
 
