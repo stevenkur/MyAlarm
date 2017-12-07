@@ -2,6 +2,8 @@ package com.example.aryapk.myalarm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,7 +16,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.aryapk.myalarm.DBAlarm.DatabaseMaster;
+import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -40,6 +46,8 @@ public class NewAlarmActivity extends AppCompatActivity {
     Context activity;
     private Uri filePath;
     private int PICK_SOUND_REQUEST = 1;
+    private DatabaseMaster dbMaster = new DatabaseMaster(NewAlarmActivity.this);
+    ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
 
     View.OnClickListener option = new View.OnClickListener() {
         @Override
@@ -69,8 +77,31 @@ public class NewAlarmActivity extends AppCompatActivity {
         showFileChooser();
         btnSaveAlarm.setOnClickListener(option);
         btnCancel.setOnClickListener(option);
+
     }
 
+    private void getAlarm() {
+        Cursor result = dbMaster.selectAll();
+        AlarmOverviewModel newAlarm = new AlarmOverviewModel();
+        if (result.getCount() > 0){
+            for (int i = 0;i<result.getCount();i++){
+                if(i==0){
+                    result.moveToFirst();
+                }
+                else {
+                    result.moveToNext();
+                }
+                newAlarm.setHour(result.getString(result.getColumnIndex("hour")));
+                newAlarm.setMinute(result.getString(result.getColumnIndex("minute")));
+                newAlarm.setSide(result.getString(result.getColumnIndex("side")));
+                newAlarm.setDate(result.getString(result.getColumnIndex("date")));
+                newAlarm.setStatus(result.getString(result.getColumnIndex("status")));
+                newAlarm.setCountDown(result.getInt(result.getColumnIndex("countDown")));
+                newAlarm.setName(result.getString(result.getColumnIndex("name")));
+                alarmList.add(newAlarm);
+            }
+        }
+    }
     private void getSound(){
         /*try {
             showFileChooser();
@@ -159,4 +190,6 @@ public class NewAlarmActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+
 }
