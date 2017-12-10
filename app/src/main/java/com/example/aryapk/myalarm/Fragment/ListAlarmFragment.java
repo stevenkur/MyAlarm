@@ -1,68 +1,46 @@
 package com.example.aryapk.myalarm.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.aryapk.myalarm.HomeAlarmActivity;
 import com.example.aryapk.myalarm.R;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class StopwatchFragment extends Fragment {
-
-    HomeAlarmActivity activity;
+public class ListAlarmFragment extends Fragment {
     View v;
-    @Bind(R.id.tvStopwatch)
-    TextView tvStopwatch;
-    @Bind(R.id.btnStartStopwatch)
-    Button btnStartStopwatch;
-    @Bind(R.id.btnPauseStopwatch)
-    Button btnPauseStopwatch;
-    @Bind(R.id.btnResetStopwatch)
-    Button btnResetStopwatch;
-    @Bind(R.id.btnSaveLapStopwatch)
-    Button btnSaveLapStopwatch;
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public StopwatchFragment() {
+    public ListAlarmFragment() {
 
     }
-
-    View.OnClickListener option = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btnStartStopwatch:
-                case R.id.btnPauseStopwatch:
-                case R.id.btnResetStopwatch:
-                case R.id.btnSaveLapStopwatch:
-            }
-        }
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v =  inflater.inflate(R.layout.fragment_stopwatch, container, false);
+        // Inflate the layout for this fragment
+        v = inflater.inflate(R.layout.fragment_list_alarm, container, false);
         ButterKnife.bind(this,v);
         return v;
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -80,7 +58,18 @@ public class StopwatchFragment extends Fragment {
         mListener = null;
     }
 
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
     public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -15,6 +15,7 @@ public class SelectModeActivity extends AppCompatActivity {
 
     @Bind(R.id.btnAlarm) Button btnAlarm;
     @Bind(R.id.btnReminder) Button btnReminder;
+    @Bind(R.id.btnStopWatch) Button btnStopWatch;
     Context Context;
 
     @Override
@@ -25,6 +26,7 @@ public class SelectModeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         btnAlarm.setOnClickListener(Option);
         btnReminder.setOnClickListener(Option);
+        btnStopWatch.setOnClickListener(Option);
     }
 
     View.OnClickListener Option = new View.OnClickListener() {
@@ -37,7 +39,11 @@ public class SelectModeActivity extends AppCompatActivity {
                     startActivity(Intent);
                     break;
                 case R.id.btnReminder:
-                    Intent = new Intent(Context,HomeReminderActivity.class);
+                    Intent = new Intent(Context,CountDownTimerActivity.class);
+                    startActivity(Intent);
+                    break;
+                case R.id.btnStopWatch:
+                    Intent = new Intent(Context,StopWatchActivity.class);
                     startActivity(Intent);
                     break;
             }

@@ -51,6 +51,8 @@ public class HomeAlarmActivity extends AppCompatActivity {
         activity = this;
         if (getIntent() != null){
             alarmList = (ArrayList<AlarmOverviewModel>) getIntent().getSerializableExtra("alarm");
+        } else {
+            dummyAlarm();
         }
         btnNewAlarm.setOnClickListener(option);
 

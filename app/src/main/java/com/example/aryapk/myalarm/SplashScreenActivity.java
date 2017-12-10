@@ -33,16 +33,17 @@ public class SplashScreenActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash_screen);
-        getAlarm();
+        //getAlarm();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 requestStoragePermission();
                 requestWakeLock();
-                Bundle args = new Bundle();
+                /*Bundle args = new Bundle();
                 args.putSerializable("alarm",alarmList);
                 Intent i = new Intent(SplashScreenActivity.this,HomeAlarmActivity.class);
-                i.putExtras(args);
+                i.putExtras(args);*/
+                Intent i = new Intent(SplashScreenActivity.this,AlarmHomeActivity.class);
                 startActivity(i);
                 finish();
             }
