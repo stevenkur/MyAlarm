@@ -5,15 +5,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompatApi24;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.aryapk.myalarm.R;
 
 public class CountDownTimerFragment extends Fragment {
     com.shawnlin.numberpicker.NumberPicker clockPicker, minutePicker, secondPicker ;
-
+    Button reset, start;
     View v;
     public CountDownTimerFragment() {
     }
@@ -31,6 +33,9 @@ public class CountDownTimerFragment extends Fragment {
         clockPicker= (com.shawnlin.numberpicker.NumberPicker) v.findViewById(R.id.clock_picker);
         minutePicker= (com.shawnlin.numberpicker.NumberPicker) v.findViewById(R.id.minute_picker);
         secondPicker = (com.shawnlin.numberpicker.NumberPicker) v.findViewById(R.id.second_picker);
+        //find button id
+        reset = (Button) v.findViewById(R.id.btnReset);
+        start = (Button) v.findViewById(R.id.btnStart);
         //clock picker setting
         clockPicker.setMinValue(0);
         clockPicker.setMaxValue(99);
