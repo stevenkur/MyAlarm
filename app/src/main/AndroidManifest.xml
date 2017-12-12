@@ -20,7 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewAlarmActivity" />
-        <activity android:name=".SelectModeActivity" />
         <activity android:name=".HomeReminderActivity" />
         <activity android:name=".AlarmHomeActivity"></activity>
     </application>
