@@ -37,7 +37,6 @@ public class CountDownTimerFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -64,9 +63,9 @@ public class CountDownTimerFragment extends Fragment {
         start.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                int clockInput  = Integer.parseInt(clockPicker.getDisplayedValues().toString());
-                int minuteInput  = Integer.parseInt(minutePicker.getDisplayedValues().toString());
-                int secondInput  = Integer.parseInt(secondPicker.getDisplayedValues().toString());
+                int clockInput  = Integer.parseInt(String.valueOf(clockPicker.getValue()));
+                int minuteInput  = Integer.parseInt(String.valueOf(minutePicker.getValue()));
+                int secondInput  = Integer.parseInt(String.valueOf(secondPicker.getValue()));
                 timeLeft = (long) clockInput * 3600000 +  (long) minuteInput * 60000 + (long) secondInput * 1000;
                 startStop(timeLeft);
             }
@@ -109,13 +108,11 @@ public class CountDownTimerFragment extends Fragment {
     }
 
     private void updateTimer() {
-        int clock = (int) timeLeft / 360000;
-        int minutes = (int) timeLeft / 60000;
-        int seconds = (int) timeLeft % 60000 / 1000;
+        int clock = (int)((timeLeft / (1000*60*60))%24);
+        int minutes = (int) ((timeLeft/(1000*60))%60);
+        int seconds = (int) (timeLeft / 1000) %60;
         String timeLeftText;
-        timeLeftText = ""+clock;
-        timeLeftText += ":";
-        timeLeftText = ""+minutes;
+        timeLeftText = ""+clock+":"+minutes;
         timeLeftText += ":";
         if (seconds < 10)
             timeLeftText +=0;
@@ -129,13 +126,11 @@ public class CountDownTimerFragment extends Fragment {
 
         super.onAttach(context);
     }
-
     @Override
     public void onDetach() {
 
         super.onDetach();
     }
-
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
