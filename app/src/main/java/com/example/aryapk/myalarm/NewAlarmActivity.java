@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -27,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.example.aryapk.myalarm.R.id.time;
 
 public class NewAlarmActivity extends AppCompatActivity {
     @Bind(R.id.btnSaveAlarm)
@@ -43,6 +46,7 @@ public class NewAlarmActivity extends AppCompatActivity {
     TextView tvTone;
     @Bind(R.id.tpClock)
     TimePicker tpClock;
+
     Context activity;
     private Uri filePath;
     private int PICK_SOUND_REQUEST = 1;
@@ -77,7 +81,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         showFileChooser();
         btnSaveAlarm.setOnClickListener(option);
         btnCancel.setOnClickListener(option);
-
+        getAlarm();
     }
 
     private void getAlarm() {
@@ -102,6 +106,19 @@ public class NewAlarmActivity extends AppCompatActivity {
             }
         }
     }
+
+    /*private void insertAlarm(){
+
+
+        TimePicker timePicker;
+        timePicker = (TimePicker) findViewById(R.id.tpClock);
+
+        tpClock.clearFocus();
+
+        timePicker.hour   = tpClock.getCurrentHour();
+        timePicker.minute = tpClock.getCurrentMinute();
+    }*/
+
     private void getSound(){
         /*try {
             showFileChooser();
