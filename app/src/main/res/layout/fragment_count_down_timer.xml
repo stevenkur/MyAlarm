@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.aryapk.myalarm.Fragment.CountDownTimerFragment">
 
     <LinearLayout
@@ -46,6 +47,7 @@
                     app:np_textSize="30sp"
                     app:np_value="3"
                     app:np_width="64dp" />
+
             </LinearLayout>
 
             <LinearLayout
