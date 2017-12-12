@@ -16,12 +16,16 @@ import com.example.aryapk.myalarm.R;
 public class CountDownTimerFragment extends Fragment {
     com.shawnlin.numberpicker.NumberPicker clockPicker, minutePicker, secondPicker ;
     Button reset, start;
+    long timeLeft = 0;
+    boolean timerRunning;
     View v;
+
     public CountDownTimerFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
@@ -48,7 +52,37 @@ public class CountDownTimerFragment extends Fragment {
         secondPicker.setMinValue(0);
         secondPicker.setMaxValue(59);
         secondPicker.setWrapSelectorWheel(true);
+
+        // start button clicked
+        start.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                int timeInput  = Integer.parseInt(clockPicker.getDisplayedValues().toString());
+                timeLeft = (long) timeInput * 60000;
+                startStop(timeLeft);
+            }
+        });
         return v;
+    }
+
+    private void startStop(long timeLeft) {
+        if (timerRunning){
+            stopTimer();
+        }
+        else {
+            startTimer();
+        }
+    }
+
+    private void stopTimer() {
+    }
+
+    private void startTimer(){
+
+    }
+
+    private void updateTimer(){
+
     }
 
     @Override
