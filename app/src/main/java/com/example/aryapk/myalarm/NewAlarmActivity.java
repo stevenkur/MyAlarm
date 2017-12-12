@@ -1,5 +1,6 @@
 package com.example.aryapk.myalarm;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,6 +31,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 import static com.example.aryapk.myalarm.R.id.time;
+import static com.example.aryapk.myalarm.R.id.tvAlarmHour;
+import static com.example.aryapk.myalarm.R.id.tvAlarmMinute;
 
 public class NewAlarmActivity extends AppCompatActivity {
     @Bind(R.id.btnSaveAlarm)
@@ -46,6 +49,9 @@ public class NewAlarmActivity extends AppCompatActivity {
     TextView tvTone;
     @Bind(R.id.tpClock)
     TimePicker tpClock;
+
+    private String hour,minute,side,date,status,name;
+    private Integer countDown;
 
     Context activity;
     private Uri filePath;
@@ -107,17 +113,24 @@ public class NewAlarmActivity extends AppCompatActivity {
         }
     }
 
-    /*private void insertAlarm(){
-
+    private void insertAlarm(){
 
         TimePicker timePicker;
         timePicker = (TimePicker) findViewById(R.id.tpClock);
 
-        tpClock.clearFocus();
+        hour = String.valueOf(tpClock.getHour());
+        minute = String.valueOf(tpClock.getMinute());
+        side = String.valueOf(side);
+        date = String.valueOf(date);
+        status = String.valueOf(status);
+        countDown = Integer.valueOf(countDown);
+        name = String.valueOf(name);
 
-        timePicker.hour   = tpClock.getCurrentHour();
-        timePicker.minute = tpClock.getCurrentMinute();
-    }*/
+        /*tpClock.clearFocus();*/
+
+        dbMaster.insertData(hour,minute,side,date,status,countDown,name);
+
+    }
 
     private void getSound(){
         /*try {
