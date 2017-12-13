@@ -43,7 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 args.putSerializable("alarm",alarmList);
                 Intent i = new Intent(SplashScreenActivity.this,HomeAlarmActivity.class);
                 i.putExtras(args);*/
-                Intent i = new Intent(SplashScreenActivity.this,AlarmHomeActivity.class);
+                Intent i = new Intent(SplashScreenActivity.this,HomeAlarmActivity.class);
                 startActivity(i);
                 finish();
             }

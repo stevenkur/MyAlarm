@@ -1,18 +1,22 @@
 package com.example.aryapk.myalarm.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.aryapk.myalarm.DummyUtils;
 import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
 import com.example.aryapk.myalarm.HomeFunctionals.HomeAlarmAdapter;
+import com.example.aryapk.myalarm.NewAlarmActivity;
 import com.example.aryapk.myalarm.R;
 
 import java.util.ArrayList;
@@ -34,10 +38,24 @@ public class ListAlarmFragment extends Fragment {
     public ListAlarmFragment() {
 
     }
+
+    View.OnClickListener option = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btnNewAlarm:
+                    Intent i = new Intent(activity, NewAlarmActivity.class);
+                    startActivity(i);
+                    break;
+            }
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        dummyAlarm();
+        btnNewAlarm.setOnClickListener(option);
     }
 
     @Override
@@ -48,13 +66,23 @@ public class ListAlarmFragment extends Fragment {
         return v;
     }
 
-    public void onButtonPressed(Uri uri) {
+    private void setAlarm(){
+        rvListAlarm.setLayoutManager(new LinearLayoutManager(activity));
+        adapter = new HomeAlarmAdapter(alarmList);
+    }
 
+    private void dummyAlarm() {
+        rvListAlarm.setLayoutManager(new LinearLayoutManager(activity));
+        DummyUtils utils = new DummyUtils();
+        alarmList = utils.getDummyModel();
+        adapter = new HomeAlarmAdapter(alarmList);
+        rvListAlarm.setAdapter(adapter);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        activity = context;
     }
 
     @Override
@@ -63,7 +91,6 @@ public class ListAlarmFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
