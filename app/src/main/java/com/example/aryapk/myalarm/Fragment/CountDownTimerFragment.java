@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CountDownTimerFragment extends Fragment {
-    @Bind(R.id.clock_picker) com.shawnlin.numberpicker.NumberPicker clockPicker;
+    @Bind(R.id.hour_picker) com.shawnlin.numberpicker.NumberPicker hourPicker;
     @Bind(R.id.minute_picker) com.shawnlin.numberpicker.NumberPicker minutePicker;
     @Bind(R.id.second_picker) com.shawnlin.numberpicker.NumberPicker secondPicker;
     @Bind(R.id.tvCountDownView) TextView tvCountDownView;
@@ -29,7 +30,7 @@ public class CountDownTimerFragment extends Fragment {
 
     long timeLeft = 0;
     long timeSaved = 0;
-    boolean timerRunning;
+
     CountDownTimer countDownTimer;
     View v;
 
@@ -48,9 +49,9 @@ public class CountDownTimerFragment extends Fragment {
         ButterKnife.bind(this,v);
 
         //clock picker setting
-        clockPicker.setMinValue(0);
-        clockPicker.setMaxValue(99);
-        clockPicker.setWrapSelectorWheel(true);
+        hourPicker.setMinValue(0);
+        hourPicker.setMaxValue(99);
+        hourPicker.setWrapSelectorWheel(true);
         //minute picker setting
         minutePicker.setMinValue(0);
         minutePicker.setMaxValue(59);
@@ -77,10 +78,10 @@ public class CountDownTimerFragment extends Fragment {
                 case R.id.btnStart:
                     if(start.getText().equals("START")){
                         if (timeSaved==0){
-                            int clockInput  = Integer.parseInt(String.valueOf(clockPicker.getValue()));
+                            int hourInput  = Integer.parseInt(String.valueOf(hourPicker.getValue()));
                             int minuteInput  = Integer.parseInt(String.valueOf(minutePicker.getValue()));
                             int secondInput  = Integer.parseInt(String.valueOf(secondPicker.getValue()));
-                            timeLeft = (long) clockInput * 3600000 +  (long) minuteInput * 60000 + (long) secondInput * 1000;
+                            timeLeft = (long) hourInput * 3600000 +  (long) minuteInput * 60000 + (long) secondInput * 1000 + 1000;
                             timeSaved = timeLeft;
                         }
                         startTimer();
@@ -94,18 +95,19 @@ public class CountDownTimerFragment extends Fragment {
     };
 
     private void resetTimer() {
-//        timerRunning = false;
-//        tvCountDownView.setVisibility(View.GONE);
-//        reset.setVisibility(View.GONE);
-//        llTimePicker.setVisibility(View.VISIBLE);
-//        start.setText("START");
+        timeSaved =0;
+        timeLeft=0;
+        llTimePicker.setVisibility(View.VISIBLE);
+        tvCountDownView.setVisibility(View.GONE);
+        reset.setVisibility(View.GONE);
+        countDownTimer.cancel();
+        start.setText("START");
     }
-    
+
     private void stopTimer() {
         reset.setVisibility(View.VISIBLE);
         countDownTimer.cancel();
         start.setText("START");
-        timerRunning = false;
     }
 
     private void startTimer(){
@@ -121,6 +123,8 @@ public class CountDownTimerFragment extends Fragment {
 
             @Override
             public void onFinish() {
+                timeSaved =0;
+                timeLeft=0;
                 countDownTimer.cancel();
                 tvCountDownView.setVisibility(View.GONE);
                 llTimePicker.setVisibility(View.VISIBLE);
@@ -128,19 +132,37 @@ public class CountDownTimerFragment extends Fragment {
             }
         }.start();
         start.setText("PAUSE");
-        timerRunning = true;
+
     }
 
     private void updateTimer() {
-        int clock = (int)((timeLeft / (1000*60*60))%24);
-        int minutes = (int) ((timeLeft/(1000*60))%60);
-        int seconds = (int) (timeLeft / 1000) %60;
-        String timeLeftText;
-        timeLeftText = ""+clock+":"+minutes;
-        timeLeftText += ":";
-        if (seconds < 10)
-            timeLeftText +=0;
-        timeLeftText += seconds;
+        int hour = (int)((timeLeft / (1000*60*60))%24);
+        int minute = (int) ((timeLeft/(1000*60))%60);
+        int second = (int) (timeLeft / 1000) %60;
+        String timeLeftText = null;
+        String hourText = null;
+        String minuteText = null;
+        String secondText = null;
+
+        if (hour < 10) {
+            hourText ="0" + String.valueOf(hour);
+        }
+        else {
+            hourText = String.valueOf(hour);
+        }
+        if (minute < 10){
+            minuteText ="0"+String.valueOf(minute);
+        }
+        else {
+            minuteText = String.valueOf(minute);
+        }
+        if (second < 10) {
+            secondText = "0" + String.valueOf(second);
+        }
+        else {
+            secondText = String.valueOf(second);
+        }
+        timeLeftText = hourText +":"+minuteText+":"+secondText;
         tvCountDownView.setText(timeLeftText);
     }
 
