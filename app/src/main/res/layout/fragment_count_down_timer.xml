@@ -56,7 +56,7 @@
                     app:np_selectedTextSize="30sp"
                     app:np_textColor="@color/colorPrimary"
                     app:np_textSize="30sp"
-                    app:np_value="3"
+                    app:np_value="0"
                     app:np_width="64dp" />
 
             </LinearLayout>
@@ -88,7 +88,7 @@
                     app:np_selectedTextSize="30sp"
                     app:np_textColor="@color/colorPrimary"
                     app:np_textSize="30sp"
-                    app:np_value="3"
+                    app:np_value="0"
                     app:np_width="64dp" />
             </LinearLayout>
 
@@ -117,7 +117,7 @@
                     app:np_selectedTextSize="30sp"
                     app:np_textColor="@color/colorPrimary"
                     app:np_textSize="30sp"
-                    app:np_value="3"
+                    app:np_value="0"
                     app:np_width="64dp" />
             </LinearLayout>
 
@@ -139,14 +139,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.57"
-                    android:text="Start"/>
+                    android:text="Start" />
 
                 <Button
                     android:id="@+id/btnReset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.57"
-                    android:text="Reset" />
+                    android:text="Reset"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

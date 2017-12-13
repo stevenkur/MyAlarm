@@ -59,18 +59,37 @@ public class CountDownTimerFragment extends Fragment {
         secondPicker.setMaxValue(59);
         secondPicker.setWrapSelectorWheel(true);
 
-        // start button clicked
-        start.setOnClickListener(new View.OnClickListener(){
+        reset.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int clockInput  = Integer.parseInt(String.valueOf(clockPicker.getValue()));
-                int minuteInput  = Integer.parseInt(String.valueOf(minutePicker.getValue()));
-                int secondInput  = Integer.parseInt(String.valueOf(secondPicker.getValue()));
-                timeLeft = (long) clockInput * 3600000 +  (long) minuteInput * 60000 + (long) secondInput * 1000;
-                startStop(timeLeft);
+            public void onClick(View v) {
+                resetTimer();
             }
         });
+        start.setOnClickListener(option);
         return v;
+    }
+
+    View.OnClickListener option = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btnStart:
+                    int clockInput  = Integer.parseInt(String.valueOf(clockPicker.getValue()));
+                    int minuteInput  = Integer.parseInt(String.valueOf(minutePicker.getValue()));
+                    int secondInput  = Integer.parseInt(String.valueOf(secondPicker.getValue()));
+                    timeLeft = (long) clockInput * 3600000 +  (long) minuteInput * 60000 + (long) secondInput * 1000;
+                    startStop(timeLeft);
+                    break;
+            }
+        }
+    };
+
+    private void resetTimer() {
+//        timerRunning = false;
+//        tvCountDownView.setVisibility(View.GONE);
+//        reset.setVisibility(View.GONE);
+//        llTimePicker.setVisibility(View.VISIBLE);
+//        start.setText("START");
     }
 
     private void startStop(long timeLeft) {
@@ -83,6 +102,7 @@ public class CountDownTimerFragment extends Fragment {
     }
 
     private void stopTimer() {
+//        reset.setVisibility(View.VISIBLE);
         countDownTimer.cancel();
         start.setText("START");
         timerRunning = false;
@@ -100,7 +120,10 @@ public class CountDownTimerFragment extends Fragment {
 
             @Override
             public void onFinish() {
-
+                countDownTimer.cancel();
+                tvCountDownView.setVisibility(View.GONE);
+                llTimePicker.setVisibility(View.VISIBLE);
+                start.setText("START");
             }
         }.start();
         start.setText("PAUSE");
