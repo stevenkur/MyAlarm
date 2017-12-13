@@ -5,22 +5,31 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
+import com.example.aryapk.myalarm.HomeFunctionals.HomeAlarmAdapter;
 import com.example.aryapk.myalarm.R;
 
+import java.util.ArrayList;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ListAlarmFragment extends Fragment {
     View v;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    @Bind(R.id.rvListAlarm)
+    RecyclerView rvListAlarm;
+    @Bind(R.id.btnNewAlarm)
+    Button btnNewAlarm;
+    ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
+    HomeAlarmAdapter adapter;
+    Context activity;
 
     public ListAlarmFragment() {
 
@@ -34,17 +43,13 @@ public class ListAlarmFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_list_alarm, container, false);
         ButterKnife.bind(this,v);
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+
     }
 
     @Override
@@ -55,19 +60,8 @@ public class ListAlarmFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
