@@ -28,6 +28,7 @@ public class CountDownTimerFragment extends Fragment {
     LinearLayout llTimePicker;
 
     long timeLeft = 0;
+    long timeSaved = 0;
     boolean timerRunning;
     CountDownTimer countDownTimer;
     View v;
@@ -74,11 +75,19 @@ public class CountDownTimerFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btnStart:
-                    int clockInput  = Integer.parseInt(String.valueOf(clockPicker.getValue()));
-                    int minuteInput  = Integer.parseInt(String.valueOf(minutePicker.getValue()));
-                    int secondInput  = Integer.parseInt(String.valueOf(secondPicker.getValue()));
-                    timeLeft = (long) clockInput * 3600000 +  (long) minuteInput * 60000 + (long) secondInput * 1000;
-                    startStop(timeLeft);
+                    if(start.getText().equals("START")){
+                        if (timeSaved==0){
+                            int clockInput  = Integer.parseInt(String.valueOf(clockPicker.getValue()));
+                            int minuteInput  = Integer.parseInt(String.valueOf(minutePicker.getValue()));
+                            int secondInput  = Integer.parseInt(String.valueOf(secondPicker.getValue()));
+                            timeLeft = (long) clockInput * 3600000 +  (long) minuteInput * 60000 + (long) secondInput * 1000;
+                            timeSaved = timeLeft;
+                        }
+                        startTimer();
+                    }
+                    else if (start.getText().equals("PAUSE")){
+                        stopTimer();
+                    }
                     break;
             }
         }
@@ -91,18 +100,9 @@ public class CountDownTimerFragment extends Fragment {
 //        llTimePicker.setVisibility(View.VISIBLE);
 //        start.setText("START");
     }
-
-    private void startStop(long timeLeft) {
-        if (timerRunning){
-            stopTimer();
-        }
-        else {
-            startTimer();
-        }
-    }
-
+    
     private void stopTimer() {
-//        reset.setVisibility(View.VISIBLE);
+        reset.setVisibility(View.VISIBLE);
         countDownTimer.cancel();
         start.setText("START");
         timerRunning = false;
@@ -114,6 +114,7 @@ public class CountDownTimerFragment extends Fragment {
         countDownTimer = new CountDownTimer(timeLeft, 1000) {
             @Override
             public void onTick(long l) {
+                timeSaved -= l;
                 timeLeft = l;
                 updateTimer();
             }
@@ -140,7 +141,6 @@ public class CountDownTimerFragment extends Fragment {
         if (seconds < 10)
             timeLeftText +=0;
         timeLeftText += seconds;
-
         tvCountDownView.setText(timeLeftText);
     }
 
