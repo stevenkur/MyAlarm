@@ -1,7 +1,11 @@
 package com.example.aryapk.myalarm;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +19,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -50,6 +56,7 @@ public class NewAlarmActivity extends AppCompatActivity {
     TextView tvTone;
     @Bind(R.id.tpClock)
     TimePicker tpClock;
+    @Bind(R.id.tvName) TextView tvName;
 
     private String hour,minute,side,date,status,name;
     private Integer countDown;
@@ -86,6 +93,9 @@ public class NewAlarmActivity extends AppCompatActivity {
                 case R.id.tvTone:
                     showFileChooser();
                     break;
+                case R.id.tvName:
+                    createDialog();
+                    break;
             }
         }
     };
@@ -100,6 +110,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         btnSaveAlarm.setOnClickListener(option);
         btnCancel.setOnClickListener(option);
         tvSound.setOnClickListener(options);
+        tvName.setOnClickListener(options);
         /*getAlarm();*/
     }
 
@@ -230,6 +241,51 @@ public class NewAlarmActivity extends AppCompatActivity {
                 mediaPlayer.start();
             }
         }.start();
+    }
+
+    public static class AlarmNameDialog extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Alarm Name")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            return builder.create();
+        }
+    }
+
+    private void createDialog(){
+        final EditText input = new EditText(NewAlarmActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewAlarmActivity.this);
+        alertDialog.setTitle("Alarm Name");
+        alertDialog.setView(input);
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                tvName.setText(input.getText().toString());
+            }
+        });
+        alertDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialog.show();
     }
 
     @Override
