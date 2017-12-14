@@ -1,7 +1,6 @@
 package com.example.aryapk.myalarm.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,21 +14,31 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.aryapk.myalarm.AlarmHomeActivity;
 import com.example.aryapk.myalarm.HomeAlarmActivity;
 import com.example.aryapk.myalarm.R;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class StopwatchFragment extends Fragment {
 
-    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L;
+    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
+
     Handler handler;
-    int Seconds, Minutes, MilliSeconds;
+
+    int Seconds, Minutes, MilliSeconds ;
+
+    String[] ListElements = new String[] {  };
+
+    List<String> ListElementsArrayList ;
+
+    ArrayAdapter<String> adapter ;
+
     HomeAlarmActivity activity;
     View v;
     @Bind(R.id.tvStopwatch)
@@ -73,6 +82,8 @@ public class StopwatchFragment extends Fragment {
                     MilliSeconds = 0;
                     tvStopwatch.setText("00:00:00");
                 case R.id.btnSaveLapStopwatch:
+                    ListElementsArrayList.add(tvStopwatch.getText().toString());
+                    adapter.notifyDataSetChanged();
             }
         }
     };
@@ -85,7 +96,17 @@ public class StopwatchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        handler = new Handler();
+        handler = new Handler() ;
+
+        ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
+
+        adapter = new ArrayAdapter<String>(StopwatchFragment.this,
+                android.R.layout.simple_list_item_1,
+                ListElementsArrayList
+        );
+
+        lvStopwatch.setAdapter(adapter);
+
         v = inflater.inflate(R.layout.fragment_stopwatch, container, false);
         ButterKnife.bind(this,v);
         return v;
