@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/pure_black"
+    >
+
+    <LinearLayout
+        android:id="@+id/llGame1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/ivPic5"
+            android:layout_width="190dp"
+            android:layout_height="200dp" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:text="Next"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/llGame2"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ivPic1"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+        <ImageView
+            android:id="@+id/ivPic2"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ivPic3"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+            <ImageView
+                android:id="@+id/ivPic4"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnBack"
+            android:text="Back"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
