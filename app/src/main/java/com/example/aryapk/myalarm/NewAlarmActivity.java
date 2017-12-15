@@ -26,6 +26,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.aryapk.myalarm.DBAlarm.DatabaseMaster;
+import com.example.aryapk.myalarm.DBAlarm.DatabaseOpenHelper;
 import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
 
 import java.io.IOException;
@@ -56,9 +57,10 @@ public class NewAlarmActivity extends AppCompatActivity {
     TextView tvTone;
     @Bind(R.id.tpClock)
     TimePicker tpClock;
-    @Bind(R.id.tvName) TextView tvName;
+    @Bind(R.id.tvName)
+    TextView tvName;
 
-    private String hour,minute,side,date,status,name;
+    private String hour, minute, side, date, status, name, path;
     private Integer countDown;
 
     Context activity;
@@ -66,6 +68,7 @@ public class NewAlarmActivity extends AppCompatActivity {
     private int PICK_SOUND_REQUEST = 1;
     private DatabaseMaster dbMaster = new DatabaseMaster(NewAlarmActivity.this);
     ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
+    DatabaseOpenHelper dbOpenHelper;
 
     View.OnClickListener option = new View.OnClickListener() {
         @Override
@@ -74,6 +77,8 @@ public class NewAlarmActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.btnSaveAlarm:
                     getSound();
+                    insertAlarm();
+                    Toast.makeText(getApplicationContext(), "Berhasil Tambah Alarm", Toast.LENGTH_LONG).show();
                     i = new Intent(activity, HomeAlarmActivity.class);
                     startActivity(i);
                     break;
@@ -111,57 +116,24 @@ public class NewAlarmActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(option);
         tvSound.setOnClickListener(options);
         tvName.setOnClickListener(options);
-        /*getAlarm();*/
-    }
-
-    private void getAlarm() {
-        Cursor result = dbMaster.selectAll();
-        AlarmOverviewModel newAlarm = new AlarmOverviewModel();
-        if (result.getCount() > 0){
-            for (int i = 0;i<result.getCount();i++){
-                if(i==0){
-                    result.moveToFirst();
-                }
-                else {
-                    result.moveToNext();
-                }
-                newAlarm.setHour(result.getString(result.getColumnIndex("hour")));
-                newAlarm.setMinute(result.getString(result.getColumnIndex("minute")));
-                newAlarm.setSide(result.getString(result.getColumnIndex("side")));
-                newAlarm.setDate(result.getString(result.getColumnIndex("date")));
-                newAlarm.setStatus(result.getString(result.getColumnIndex("status")));
-                newAlarm.setCountDown(result.getInt(result.getColumnIndex("countDown")));
-                newAlarm.setName(result.getString(result.getColumnIndex("name")));
-                alarmList.add(newAlarm);
-            }
-        }
     }
 
     private void insertAlarm(){
-
-        TimePicker timePicker;
-        timePicker = (TimePicker) findViewById(R.id.tpClock);
-
         hour = String.valueOf(tpClock.getHour());
         minute = String.valueOf(tpClock.getMinute());
         side = String.valueOf(side);
         date = String.valueOf(date);
-        status = String.valueOf(status);
-        countDown = Integer.valueOf(countDown);
+        status = "ON";
         name = String.valueOf(name);
+        path = FilePath.getPath(this, filePath);
 
-        dbMaster.insertData(hour,minute,side,date,status,countDown,name);
+        dbMaster.insertData(hour, minute, date, status, name, path);
 
 
     }
 
     private void getSound(){
-        /*try {
-            showFileChooser();
-        } finally {
-
-        }*/
-        String path = FilePath.getPath(this,filePath);
+        String path = FilePath.getPath(this, filePath);
         setAlarm(path);
     }
 

@@ -98,14 +98,14 @@ public class StopwatchFragment extends Fragment {
                              Bundle savedInstanceState) {
         handler = new Handler() ;
 
-        ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
-
-        adapter = new ArrayAdapter<String>(StopwatchFragment.this,
-                android.R.layout.simple_list_item_1,
-                ListElementsArrayList
-        );
-
-        lvStopwatch.setAdapter(adapter);
+//        ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
+//
+//        adapter = new ArrayAdapter<String>(StopwatchFragment.this,
+//                android.R.layout.simple_list_item_1,
+//                ListElementsArrayList
+//        );
+//
+//        lvStopwatch.setAdapter(adapter);
 
         v = inflater.inflate(R.layout.fragment_stopwatch, container, false);
         ButterKnife.bind(this,v);

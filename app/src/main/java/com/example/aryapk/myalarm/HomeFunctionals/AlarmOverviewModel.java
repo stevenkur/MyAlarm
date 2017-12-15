@@ -9,20 +9,10 @@ import java.io.Serializable;
 public class AlarmOverviewModel implements Serializable {
     private String hour;
     private String minute;
-    private String side;
     private String date;
     private String status;
-    private Integer countDown;
     private String name;
-
-
-    public Integer getCountDown() {
-        return countDown;
-    }
-
-    public void setCountDown(Integer countDown) {
-        this.countDown = countDown;
-    }
+    private String path;
 
     public String getHour() {
         return hour;
@@ -38,14 +28,6 @@ public class AlarmOverviewModel implements Serializable {
 
     public void setMinute(String minute) {
         this.minute = minute;
-    }
-
-    public String getSide() {
-        return side;
-    }
-
-    public void setSide(String side) {
-        this.side = side;
     }
 
     public String getDate() {
@@ -70,5 +52,13 @@ public class AlarmOverviewModel implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 }

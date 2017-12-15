@@ -47,56 +47,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llRepeat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="Repeat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvRepeat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Never"
-                    android:textColor="@color/blue_500"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llAlarmType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="Alarm Type"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvSound"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sound"
-                    android:textColor="@color/blue_500"/>
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/llAlarmTone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,30 +71,30 @@
                     android:textColor="@color/blue_500"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llSnooze"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/llSnooze"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="Snooze"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.5"-->
+                    <!--android:text="Snooze"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/tvSnooze"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="3 minutes"
-                    android:textColor="@color/blue_500"/>
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/tvSnooze"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="3 minutes"-->
+                    <!--android:textColor="@color/blue_500"/>-->
+            <!--</LinearLayout>-->
 
         </LinearLayout>
     </ScrollView>

@@ -29,8 +29,8 @@ public class DatabaseMaster {
     Button btnSaveAlarm;
 
     public DatabaseMaster(Context context){
-        databaseOpenHelper = new DatabaseOpenHelper(context,DB_NAME,null,1);
-        Log.i("Master","isThere");
+        databaseOpenHelper = new DatabaseOpenHelper(context, DB_NAME, null, 1);
+        Log.i("Master", "isThere");
     }
 
     public void open() throws SQLException {
@@ -45,50 +45,45 @@ public class DatabaseMaster {
         if (database!=null) database.close();
     }
 
-    public void insertData(String hour,String minute,String side,String date,String status,Integer countDown,String name){
+    public void insertData(String hour, String minute, String date, String status, String name, String path){
         ContentValues newAlarm = new ContentValues();
 
-        newAlarm.put("hour",hour);
-        newAlarm.put("minute",minute);
-        newAlarm.put("side",side);
-        newAlarm.put("date",date);
-        newAlarm.put("status",status);
-        newAlarm.put("countDown",countDown);
-        newAlarm.put("name",name);
+        newAlarm.put("hour", hour);
+        newAlarm.put("minute", minute);
+        newAlarm.put("date", date);
+        newAlarm.put("status", status);
+        newAlarm.put("name", name);
+        newAlarm.put("path", path);
 
         open();
-        database.insert("alarm",null,newAlarm);
+        database.insert("alarm", null, newAlarm);
         close();
     }
 
-    public void selectData(){
-        /*cursor = NewAlarmActivity.rawQuery("SELECT * FROM alarm WHERE name = '" +
-                getIntent().getStringExtra("name") + "'",null);
-        cursor.moveToFirst();
-        if (cursor.getCount()>0)
-        {
-            cursor.moveToPosition(0);
-            hour.setText(cursor.getString(0).toString());
-            minute.setText(cursor.getString(1).toString());
-            side.setText(cursor.getString(2).toString());
-            date.setText(cursor.getString(3).toString());
-            status.setText(cursor.getString(4).toString());
-            countDown.setText(cursor.getString(4).toString());
-            name.setText(cursor.getString(4).toString());
-        }
+    public void updateData(Integer id, String hour, String minute, String side, String date, String status, String name, String path){
+        ContentValues editAlarm = new ContentValues();
 
-        btnSaveAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                finish();
-            }
-        });*/
+        editAlarm.put("hour", hour);
+        editAlarm.put("minute", minute);
+        editAlarm.put("date", date);
+        editAlarm.put("status", status);
+        editAlarm.put("name", name);
+        editAlarm.put("path", path);
+
+        open();
+        database.update("alarm", editAlarm, "_id="+id, null);
+        close();
+    }
+
+    public void deleteData(String id){
+        open();
+        database.delete("alarm", "_id="+id, null);
+        close();
     }
 
     public Cursor selectAll(){
         open();
         read();
-        return database.query("alarm",new String[]{"_id","hour","minute","side","date","status","countDown","name"},null,null,null,null,"date");
+        return database.query("alarm", new String[]{"_id", "hour", "minute", "side", "date", "status", "countDown", "name"}, null, null, null, null, "date");
     }
 }

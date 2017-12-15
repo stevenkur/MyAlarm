@@ -18,9 +18,11 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i("DB","IsCreated");
+        Log.i("DB", "IsCreated");
         this.dba = db;
-        String createQuery="CREATE TABLE IF NOT EXISTS alarm"+"(_id integer primary key autoincrement,"+"hour TEXT, minute TEXT, side TEXT, date TEXT, status TEXT, countdown INTEGER, name TEXT);";
+        String createQuery="CREATE TABLE IF NOT EXISTS alarm"
+                + " (_id integer primary key autoincrement,"
+                + " hour TEXT, minute TEXT, date TEXT, status TEXT, name TEXT, path TEXT);";
         dba.execSQL(createQuery);
     }
 
