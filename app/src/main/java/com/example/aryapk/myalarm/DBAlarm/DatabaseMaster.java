@@ -9,6 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.aryapk.myalarm.NewAlarmActivity;
+import com.example.aryapk.myalarm.R;
+
+import butterknife.Bind;
+
+import static android.R.attr.countDown;
+import static android.R.attr.name;
+
 /**
  * Created by Aryapk on 12/6/2017.
  */
@@ -17,6 +25,8 @@ public class DatabaseMaster {
     private static final String DB_NAME = "alarm.db";
     private SQLiteDatabase database;
     private DatabaseOpenHelper databaseOpenHelper;
+    @Bind(R.id.btnSaveAlarm)
+    Button btnSaveAlarm;
 
     public DatabaseMaster(Context context){
         databaseOpenHelper = new DatabaseOpenHelper(context,DB_NAME,null,1);
@@ -52,21 +62,22 @@ public class DatabaseMaster {
     }
 
     public void selectData(){
-        /*cursor = db.rawQuery("SELECT * FROM biodata WHERE nama = '" +
-                getIntent().getStringExtra("nama") + "'",null);
+        /*cursor = NewAlarmActivity.rawQuery("SELECT * FROM alarm WHERE name = '" +
+                getIntent().getStringExtra("name") + "'",null);
         cursor.moveToFirst();
         if (cursor.getCount()>0)
         {
             cursor.moveToPosition(0);
-            text1.setText(cursor.getString(0).toString());
-            text2.setText(cursor.getString(1).toString());
-            text3.setText(cursor.getString(2).toString());
-            text4.setText(cursor.getString(3).toString());
-            text5.setText(cursor.getString(4).toString());
+            hour.setText(cursor.getString(0).toString());
+            minute.setText(cursor.getString(1).toString());
+            side.setText(cursor.getString(2).toString());
+            date.setText(cursor.getString(3).toString());
+            status.setText(cursor.getString(4).toString());
+            countDown.setText(cursor.getString(4).toString());
+            name.setText(cursor.getString(4).toString());
         }
-        ton2 = (Button) findViewById(R.id.button1);
-        ton2.setOnClickListener(new View.OnClickListener() {
 
+        btnSaveAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
