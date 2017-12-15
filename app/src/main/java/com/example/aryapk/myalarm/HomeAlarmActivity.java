@@ -49,8 +49,13 @@ public class HomeAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home_alarm);
         ButterKnife.bind(this);
         activity = this;
-        dummyAlarm();
+        if (getIntent() != null){
+            alarmList = (ArrayList<AlarmOverviewModel>) getIntent().getSerializableExtra("alarm");
+        } else {
+            dummyAlarm();
+        }
         btnNewAlarm.setOnClickListener(option);
+
     }
 
     private void setAlarm(){

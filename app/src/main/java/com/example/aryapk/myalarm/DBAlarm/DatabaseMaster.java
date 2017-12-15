@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by Aryapk on 12/6/2017.
@@ -47,6 +49,30 @@ public class DatabaseMaster {
         open();
         database.insert("alarm",null,newAlarm);
         close();
+    }
+
+    public void selectData(){
+        /*cursor = db.rawQuery("SELECT * FROM biodata WHERE nama = '" +
+                getIntent().getStringExtra("nama") + "'",null);
+        cursor.moveToFirst();
+        if (cursor.getCount()>0)
+        {
+            cursor.moveToPosition(0);
+            text1.setText(cursor.getString(0).toString());
+            text2.setText(cursor.getString(1).toString());
+            text3.setText(cursor.getString(2).toString());
+            text4.setText(cursor.getString(3).toString());
+            text5.setText(cursor.getString(4).toString());
+        }
+        ton2 = (Button) findViewById(R.id.button1);
+        ton2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                finish();
+            }
+        });*/
     }
 
     public Cursor selectAll(){

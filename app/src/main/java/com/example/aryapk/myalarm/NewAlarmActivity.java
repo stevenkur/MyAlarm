@@ -150,9 +150,8 @@ public class NewAlarmActivity extends AppCompatActivity {
         countDown = Integer.valueOf(countDown);
         name = String.valueOf(name);
 
-        /*tpClock.clearFocus();*/
-
         dbMaster.insertData(hour,minute,side,date,status,countDown,name);
+
 
     }
 
