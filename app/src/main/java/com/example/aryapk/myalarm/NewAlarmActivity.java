@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
@@ -26,33 +27,32 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.aryapk.myalarm.DBAlarm.DatabaseMaster;
-import com.example.aryapk.myalarm.DBAlarm.DatabaseOpenHelper;
 import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import static com.example.aryapk.myalarm.R.id.time;
-import static com.example.aryapk.myalarm.R.id.tvAlarmHour;
-import static com.example.aryapk.myalarm.R.id.tvAlarmMinute;
 
 public class NewAlarmActivity extends AppCompatActivity {
     @Bind(R.id.btnSaveAlarm)
     Button btnSaveAlarm;
     @Bind(R.id.btnCancel)
     Button btnCancel;
-    @Bind(R.id.tvRepeat)
+    /*@Bind(R.id.tvRepeat)
     TextView tvRepeat;
     @Bind(R.id.tvSnooze)
     TextView tvSnooze;
     @Bind(R.id.tvSound)
-    TextView tvSound;
+    TextView tvSound;*/
     @Bind(R.id.tvTone)
     TextView tvTone;
     @Bind(R.id.tpClock)
@@ -61,14 +61,14 @@ public class NewAlarmActivity extends AppCompatActivity {
     TextView tvName;
 
     private String hour, minute, side, date, status, name, path;
-    private Integer countDown;
+    SharedPreferences sharedpreferences;
+    AlarmOverviewModel model = new AlarmOverviewModel();
 
     Context activity;
     private Uri filePath;
     private int PICK_SOUND_REQUEST = 1;
     private DatabaseMaster dbMaster = new DatabaseMaster(NewAlarmActivity.this);
     ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
-    DatabaseOpenHelper dbOpenHelper;
 
     View.OnClickListener option = new View.OnClickListener() {
         @Override
@@ -76,14 +76,15 @@ public class NewAlarmActivity extends AppCompatActivity {
             Intent i;
             switch (v.getId()) {
                 case R.id.btnSaveAlarm:
-                    getSound();
+                    /*getSound();*/
                     insertAlarm();
-                    Toast.makeText(getApplicationContext(), "Berhasil Tambah Alarm", Toast.LENGTH_LONG).show();
-                    i = new Intent(activity, HomeAlarmActivity.class);
+                    /*Toast.makeText(getApplicationContext(), "Berhasil Tambah Alarm", Toast.LENGTH_LONG).show();*/
+                    /*Log.i("Ala")*/
+                    i = new Intent(activity, AlarmHomeActivity.class);
                     startActivity(i);
                     break;
                 case R.id.btnCancel:
-                    i = new Intent(activity, HomeAlarmActivity.class);
+                    i = new Intent(activity, AlarmHomeActivity.class);
                     startActivity(i);
                     break;
             }
@@ -114,22 +115,58 @@ public class NewAlarmActivity extends AppCompatActivity {
         showFileChooser();
         btnSaveAlarm.setOnClickListener(option);
         btnCancel.setOnClickListener(option);
-        tvSound.setOnClickListener(options);
+        /*tvSound.setOnClickListener(options);*/
+        tvTone.setOnClickListener(options);
         tvName.setOnClickListener(options);
     }
 
     private void insertAlarm(){
-        hour = String.valueOf(tpClock.getHour());
-        minute = String.valueOf(tpClock.getMinute());
-        side = String.valueOf(side);
+        hour = String.valueOf(tpClock.getCurrentHour());
+        minute = String.valueOf(tpClock.getCurrentMinute());
         date = String.valueOf(date);
         status = "ON";
         name = String.valueOf(name);
         path = FilePath.getPath(this, filePath);
 
-        dbMaster.insertData(hour, minute, date, status, name, path);
+        /*dbMaster.insertData(hour, minute, date, status, name, path);*/
+        model.setDate(" ");
+        model.setHour(hour);
+        model.setMinute(minute);
+        model.setName("Empty");
+        model.setPath(path);
+        model.setStatus(status);
+        getPreferenceListPerson();
 
+        setAlarm(path);
 
+    }
+
+    private void createSharedPreference(){
+        alarmList.add(model);
+        SharedPreferences mySharedPreferences = getSharedPreferences("alarmDB",Context.MODE_PRIVATE);
+        SharedPreferences.Editor edt = mySharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(alarmList);
+        edt.putString("alarmList",json);
+        edt.commit();
+    }
+
+    private void getPreferenceListPerson(){
+        alarmList.removeAll(alarmList);
+        SharedPreferences mySharedPreferences = getSharedPreferences("alarmDB",Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mySharedPreferences.getString("alarmList","Empty");
+        Type type = new TypeToken<ArrayList<AlarmOverviewModel>>(){}.getType();
+        if (json != "Empty"){
+            alarmList = gson.fromJson(json,type);
+            Log.i("AlarmList",alarmList.toString());
+            createSharedPreference();
+            Log.i("List","notEmpty");
+        }
+        else {
+            Log.i("List","Empty");
+            createSharedPreference();
+        }
     }
 
     private void getSound(){
@@ -142,8 +179,8 @@ public class NewAlarmActivity extends AppCompatActivity {
         long currentHour=currentTime.getHours();
         long currentMinute=currentTime.getMinutes();
         long currentSecond=currentTime.getSeconds();
-        long selectedHour = tpClock.getHour();
-        long selectedMinute = tpClock.getMinute();
+        long selectedHour = tpClock.getCurrentHour();
+        long selectedMinute = tpClock.getCurrentMinute();
         Log.i("Current Time",currentHour+ " : "+ currentMinute);
         Log.i("Selected Time",selectedHour+ " : "+ selectedMinute);
         if (currentHour>selectedHour){
@@ -190,6 +227,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         String path = paths;
         Log.i("path 2",path);
         final Uri songUri = Uri.parse(path);
+        CountDownTimer countDownTimer =
         new CountDownTimer(duration, 1000) {
             public void onTick(long millisUntilFinished) {
 

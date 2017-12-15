@@ -37,7 +37,6 @@ public class HomeAlarmAdapter extends BaseRecyclerViewAdapter {
         AlarmOverviewModel modelAlarm = (AlarmOverviewModel) items.get(position);
         aoh.tvAlarmHour.setText(modelAlarm.getHour());
         aoh.tvAlarmMinute.setText(modelAlarm.getMinute());
-        aoh.tvAlarmTimeZone.setText(modelAlarm.getSide());
         aoh.tvAlarmDate.setText(modelAlarm.getDate());
         aoh.tvAlarmStatus.setText(modelAlarm.getStatus());
     }

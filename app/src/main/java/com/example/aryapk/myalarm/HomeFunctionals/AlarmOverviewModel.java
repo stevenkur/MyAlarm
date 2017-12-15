@@ -1,5 +1,10 @@
 package com.example.aryapk.myalarm.HomeFunctionals;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -7,12 +12,20 @@ import java.io.Serializable;
  */
 
 public class AlarmOverviewModel implements Serializable {
-    private String hour;
-    private String minute;
-    private String date;
-    private String status;
-    private String name;
-    private String path;
+    @SerializedName("date") private String date;
+    @SerializedName("hour") private String hour;
+    @SerializedName("minute") private String minute;
+    @SerializedName("name") private String name;
+    @SerializedName("path") private String path;
+    @SerializedName("status") private String status;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getHour() {
         return hour;
@@ -30,22 +43,6 @@ public class AlarmOverviewModel implements Serializable {
         this.minute = minute;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getName() {
         return name;
     }
@@ -60,5 +57,13 @@ public class AlarmOverviewModel implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

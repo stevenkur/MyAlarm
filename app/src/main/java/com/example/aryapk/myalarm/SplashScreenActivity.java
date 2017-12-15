@@ -50,7 +50,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }, splashInterval);
     }
 
-    private void getAlarm(){
+    /*private void getAlarm(){
         Cursor result = dbMaster.selectAll();
         AlarmOverviewModel model = new AlarmOverviewModel();
         if (result.getCount() > 0){
@@ -71,7 +71,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 alarmList.add(model);
             }
         }
-    }
+    }*/
 
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)

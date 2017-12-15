@@ -26,13 +26,13 @@ public class DummyUtils {
             item.setHour(dummyHour[i]);
             item.setMinute(dummyMinute[i]);
             item.setDate(dummyDate[i]);
-            if (i % 2 == 0) {
+            /*if (i % 2 == 0) {
                 item.setSide("AM");
                 item.setStatus("Active");
             } else {
                 item.setSide("PM");
                 item.setStatus("Inactive");
-            }
+            }*/
             dummyModel.add(item);
         }
     }
