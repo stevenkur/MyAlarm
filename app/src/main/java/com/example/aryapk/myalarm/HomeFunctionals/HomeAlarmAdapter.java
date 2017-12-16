@@ -39,8 +39,18 @@ public class HomeAlarmAdapter extends BaseRecyclerViewAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final AlarmOverviewHolder aoh = (AlarmOverviewHolder) holder;
         final AlarmOverviewModel modelAlarm = (AlarmOverviewModel) items.get(position);
-        aoh.tvAlarmHour.setText(modelAlarm.getHour());
-        aoh.tvAlarmMinute.setText(modelAlarm.getMinute());
+        if (Integer.valueOf(modelAlarm.getHour())<10){
+            aoh.tvAlarmHour.setText("0"+modelAlarm.getHour());
+        }
+        else {
+            aoh.tvAlarmHour.setText(modelAlarm.getHour());
+        }
+        if (Integer.valueOf(modelAlarm.getMinute())<10){
+            aoh.tvAlarmMinute.setText("0"+modelAlarm.getMinute());
+        }
+        else {
+            aoh.tvAlarmMinute.setText(modelAlarm.getMinute());
+        }
         aoh.tvAlarmDate.setText(modelAlarm.getDate());
         aoh.tvAlarmStatus.setText(modelAlarm.getStatus());
         aoh.tvAlarmStatus.setOnClickListener(new View.OnClickListener() {
