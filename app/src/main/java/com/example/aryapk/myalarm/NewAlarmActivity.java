@@ -112,7 +112,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_alarm);
         ButterKnife.bind(this);
         activity = this;
-        showFileChooser();
+        /*showFileChooser();*/
         btnSaveAlarm.setOnClickListener(option);
         btnCancel.setOnClickListener(option);
         /*tvSound.setOnClickListener(options);*/
@@ -134,8 +134,8 @@ public class NewAlarmActivity extends AppCompatActivity {
         model.setName(name);
         model.setPath(path);
         model.setStatus(status);
-
-        setAlarm(path);
+        model.setCountDown(model.createCountDown(activity).start());
+        getPreferenceListAlarm();
     }
 
     private void createSharedPreference(){
@@ -166,7 +166,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         }
     }
 
-    private void getSound(){
+    /*private void getSound(){
         String path = FilePath.getPath(this, filePath);
         setAlarm(path);
     }
@@ -194,16 +194,16 @@ public class NewAlarmActivity extends AppCompatActivity {
         toSum = toSum - hourTotal*3600000;
         long minuteTotal = toSum/60000;
         Toast.makeText(this,"Alarm set for "+String.valueOf(hourTotal)+" hours and "+String.valueOf(minuteTotal)+" minutes from now",Toast.LENGTH_LONG).show();
-        /*AlarmTurnOn alarmTurnOn = new AlarmTurnOn();
+        *//*AlarmTurnOn alarmTurnOn = new AlarmTurnOn();
         alarmTurnOn.setSoundPath(path);
         alarmTurnOn.setTimeCount(duration);
         Log.i("Path",path);
-        new PlaySound(activity).execute(alarmTurnOn);*/
+        new PlaySound(activity).execute(alarmTurnOn);*//*
 
         model.setCountDown(turnOn(path,duration));
         model.getCountDown().start();
         getPreferenceListAlarm();
-    }
+    }*/
 
     private void showFileChooser() {
         Intent intent = new Intent();
@@ -222,7 +222,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         }
     }
 
-    private CountDownTimer turnOn(String paths, long duration){
+    /*private CountDownTimer turnOn(String paths, long duration){
         String path = paths;
         Log.i("path 2",path);
         final Uri songUri = Uri.parse(path);
@@ -250,7 +250,7 @@ public class NewAlarmActivity extends AppCompatActivity {
             }
         };
         return countDownTimer;
-    }
+    }*/
 
     private void createDialog(){
         final EditText input = new EditText(NewAlarmActivity.this);
