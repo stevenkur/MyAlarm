@@ -74,7 +74,7 @@ public class ListAlarmFragment extends Fragment {
     }
 
     private void setAlarm(){
-        adapter = new HomeAlarmAdapter(alarmList);
+        adapter = new HomeAlarmAdapter(alarmList,activity);
     }
 
     private void createSharedPreference(){
@@ -94,7 +94,7 @@ public class ListAlarmFragment extends Fragment {
         Type type = new TypeToken<ArrayList<AlarmOverviewModel>>(){}.getType();
         if (json != "Empty"){
             alarmList = gson.fromJson(json,type);
-            adapter = new HomeAlarmAdapter(alarmList);
+            adapter = new HomeAlarmAdapter(alarmList,activity);
             rvListAlarm.setAdapter(adapter);
         }
         else Log.i("ListAlarm","isEmpty");
@@ -105,7 +105,7 @@ public class ListAlarmFragment extends Fragment {
         rvListAlarm.setLayoutManager(new LinearLayoutManager(activity));
         DummyUtils utils = new DummyUtils();
         alarmList = utils.getDummyModel();
-        adapter = new HomeAlarmAdapter(alarmList);
+        adapter = new HomeAlarmAdapter(alarmList,activity);
         rvListAlarm.setAdapter(adapter);
     }
 

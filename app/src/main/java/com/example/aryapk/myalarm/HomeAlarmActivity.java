@@ -60,14 +60,14 @@ public class HomeAlarmActivity extends AppCompatActivity {
 
     private void setAlarm(){
         rvListAlarm.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HomeAlarmAdapter(alarmList);
+        //adapter = new HomeAlarmAdapter(alarmList);
     }
 
     private void dummyAlarm() {
         rvListAlarm.setLayoutManager(new LinearLayoutManager(this));
         DummyUtils utils = new DummyUtils();
         alarmList = utils.getDummyModel();
-        adapter = new HomeAlarmAdapter(alarmList);
+//        adapter = new HomeAlarmAdapter(alarmList);
         rvListAlarm.setAdapter(adapter);
     }
 }

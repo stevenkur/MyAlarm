@@ -1,9 +1,11 @@
 package com.example.aryapk.myalarm.HomeFunctionals;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.aryapk.myalarm.BaseRecyclerViewAdapter;
@@ -20,8 +22,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class HomeAlarmAdapter extends BaseRecyclerViewAdapter {
-    public HomeAlarmAdapter(ArrayList<AlarmOverviewModel> items) {
+    Context context;
+    public HomeAlarmAdapter(ArrayList<AlarmOverviewModel> items, Context context) {
         super(items);
+        this.context = context;
     }
 
     @Override
@@ -34,11 +38,29 @@ public class HomeAlarmAdapter extends BaseRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final AlarmOverviewHolder aoh = (AlarmOverviewHolder) holder;
-        AlarmOverviewModel modelAlarm = (AlarmOverviewModel) items.get(position);
+        final AlarmOverviewModel modelAlarm = (AlarmOverviewModel) items.get(position);
         aoh.tvAlarmHour.setText(modelAlarm.getHour());
         aoh.tvAlarmMinute.setText(modelAlarm.getMinute());
         aoh.tvAlarmDate.setText(modelAlarm.getDate());
         aoh.tvAlarmStatus.setText(modelAlarm.getStatus());
+        aoh.tvAlarmStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (modelAlarm.getStatus() == "Active"){
+                    modelAlarm.setStatus("Inactive");
+                }
+                else {
+                    /*modelAlarm.setCountDown(modelAlarm.createCountDown(context).start());
+                    modelAlarm.setStatus("Active");*/
+                }
+            }
+        });
+        aoh.llAlarmItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public static class AlarmOverviewHolder extends RecyclerView.ViewHolder {
@@ -52,6 +74,8 @@ public class HomeAlarmAdapter extends BaseRecyclerViewAdapter {
         TextView tvAlarmDate;
         @Bind(R.id.tvAlarmStatus)
         TextView tvAlarmStatus;
+        @Bind(R.id.llAlarmItem)
+        LinearLayout llAlarmItem;
 
         public AlarmOverviewHolder(View itemView) {
             super(itemView);
