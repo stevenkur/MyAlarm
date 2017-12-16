@@ -140,6 +140,7 @@ public class GameActivity extends AppCompatActivity{
         if(tagPicture == theCard){
             Toast.makeText(GameActivity.this, "Jawaban Benar", Toast.LENGTH_SHORT).show();
             stopService(new Intent(this,MyService.class));
+            finish();
         } else {
             Toast.makeText(GameActivity.this, "Jawaban Salah", Toast.LENGTH_SHORT).show();
         }
