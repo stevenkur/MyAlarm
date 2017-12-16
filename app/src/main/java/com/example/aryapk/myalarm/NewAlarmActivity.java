@@ -208,8 +208,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         /*AlarmTurnOn alarmTurnOn = new AlarmTurnOn();
         alarmTurnOn.setSoundPath(path);
         alarmTurnOn.setTimeCount(duration);
-        Log.i("Path",path);
-        new PlaySound(activity).execute(alarmTurnOn);*/
+        Log.i("Path",path);*/
 
         /*model.setCountDown(turnOn(path,duration));
         model.getCountDown().start();*/
