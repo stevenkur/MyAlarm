@@ -1,18 +1,24 @@
 package com.example.aryapk.myalarm.Fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.aryapk.myalarm.MyService;
+import com.example.aryapk.myalarm.NewAlarmActivity;
 import com.example.aryapk.myalarm.R;
 
 import butterknife.Bind;
@@ -27,6 +33,7 @@ public class CountDownTimerFragment extends Fragment {
     @Bind(R.id.btnStart) Button start;
     @Bind(R.id.llTimePicker)
     LinearLayout llTimePicker;
+    Context context;
 
     long timeLeft = 0;
     long timeSaved = 0;
@@ -123,12 +130,8 @@ public class CountDownTimerFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                timeSaved =0;
-                timeLeft=0;
-                countDownTimer.cancel();
-                tvCountDownView.setVisibility(View.GONE);
-                llTimePicker.setVisibility(View.VISIBLE);
-                start.setText("START");
+                getActivity().startService(new Intent(getActivity(), MyService.class));
+                createDialog();
             }
         }.start();
         start.setText("PAUSE");
@@ -166,10 +169,34 @@ public class CountDownTimerFragment extends Fragment {
         tvCountDownView.setText(timeLeftText);
     }
 
+    private void createDialog(){
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(context);
+        alertDialog.setTitle("Timer Done");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getActivity().stopService(new Intent(getActivity(), MyService.class));
+                timeSaved =0;
+                timeLeft=0;
+                countDownTimer.cancel();
+                tvCountDownView.setVisibility(View.GONE);
+                llTimePicker.setVisibility(View.VISIBLE);
+                start.setText("START");
+            }
+        });
+
+        alertDialog.show();
+    }
+
+
     @Override
     public void onAttach(Context context) {
 
         super.onAttach(context);
+        this.context = context;
     }
     @Override
     public void onDetach() {
