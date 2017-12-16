@@ -32,15 +32,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.aryapk.myalarm.DBAlarm.DatabaseMaster;
 import com.example.aryapk.myalarm.Game.GameActivity;
 import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
-
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,12 +50,6 @@ public class NewAlarmActivity extends AppCompatActivity {
     Button btnSaveAlarm;
     @Bind(R.id.btnCancel)
     Button btnCancel;
-    /*@Bind(R.id.tvRepeat)
-    TextView tvRepeat;
-    @Bind(R.id.tvSnooze)
-    TextView tvSnooze;
-    @Bind(R.id.tvSound)
-    TextView tvSound;*/
     @Bind(R.id.tvTone)
     TextView tvTone;
     @Bind(R.id.tpClock)
@@ -84,10 +74,7 @@ public class NewAlarmActivity extends AppCompatActivity {
             Intent i;
             switch (v.getId()) {
                 case R.id.btnSaveAlarm:
-                    /*getSound();*/
                     insertAlarm();
-                    /*Toast.makeText(getApplicationContext(), "Berhasil Tambah Alarm", Toast.LENGTH_LONG).show();*/
-                    /*Log.i("Ala")*/
                     i = new Intent(activity, AlarmHomeActivity.class);
                     startActivity(i);
                     break;
@@ -120,10 +107,8 @@ public class NewAlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_alarm);
         ButterKnife.bind(this);
         activity = this;
-        /*showFileChooser();*/
         btnSaveAlarm.setOnClickListener(option);
         btnCancel.setOnClickListener(option);
-        /*tvSound.setOnClickListener(options);*/
         tvTone.setOnClickListener(options);
         tvName.setOnClickListener(options);
     }
@@ -142,9 +127,6 @@ public class NewAlarmActivity extends AppCompatActivity {
         model.setName(name);
         model.setPath(path);
         model.setStatus(status);
-        //CountDownTimer countDownTimer = turnOn(path,model.countDuration()).start();
-        /*turnOn(path,model.countDuration()).start();
-        getPreferenceListAlarm();*/
         setAlarm(path);
     }
 
@@ -176,11 +158,6 @@ public class NewAlarmActivity extends AppCompatActivity {
         }
     }
 
-    /*private void getSound(){
-        String path = FilePath.getPath(this, filePath);
-        setAlarm(path);
-    }*/
-
     private void setAlarm(String path){
         Date currentTime = Calendar.getInstance().getTime();
         long currentHour=currentTime.getHours();
@@ -204,14 +181,6 @@ public class NewAlarmActivity extends AppCompatActivity {
         toSum = toSum - hourTotal*3600000;
         long minuteTotal = toSum/60000;
         Toast.makeText(this,"Alarm set for "+String.valueOf(hourTotal)+" hours and "+String.valueOf(minuteTotal)+" minutes from now",Toast.LENGTH_LONG).show();
-
-        /*AlarmTurnOn alarmTurnOn = new AlarmTurnOn();
-        alarmTurnOn.setSoundPath(path);
-        alarmTurnOn.setTimeCount(duration);
-        Log.i("Path",path);*/
-
-        /*model.setCountDown(turnOn(path,duration));
-        model.getCountDown().start();*/
 
         turnOn(path,duration);
         getPreferenceListAlarm();
@@ -251,20 +220,7 @@ public class NewAlarmActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                /*Log.i("CountDown","finished");
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                try {
-                    mediaPlayer.setDataSource(activity, songUri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    mediaPlayer.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mediaPlayer.start();*/
+
                 Intent i = new Intent(activity,GameActivity.class);
                 startActivity(i);
             }
