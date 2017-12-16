@@ -1,6 +1,9 @@
 package com.example.aryapk.myalarm.Game;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.aryapk.myalarm.MyService;
 import com.example.aryapk.myalarm.R;
 
 import java.util.Arrays;
@@ -38,6 +42,8 @@ public class GameActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        startService(new Intent(this, MyService.class));
 
         btnNext = (Button) findViewById(R.id.btnNext);
         btnBack = (Button) findViewById(R.id.btnBack);
@@ -133,6 +139,7 @@ public class GameActivity extends AppCompatActivity{
     private void checkCorrect(int theCard){
         if(tagPicture == theCard){
             Toast.makeText(GameActivity.this, "Jawaban Benar", Toast.LENGTH_SHORT).show();
+            stopService(new Intent(this,MyService.class));
         } else {
             Toast.makeText(GameActivity.this, "Jawaban Salah", Toast.LENGTH_SHORT).show();
         }
