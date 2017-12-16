@@ -83,13 +83,7 @@ public class GameActivity extends AppCompatActivity{
 
         loadImages();
 
-        Collections.shuffle(Arrays.asList(cardsArray));
-
-        shuffleCard(ivPic1,0);
-        shuffleCard(ivPic2,1);
-        shuffleCard(ivPic3,2);
-        shuffleCard(ivPic4,3);
-        shuffleCard(ivPic5,tagPicture);
+        shuffle();
 
         ivPic1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +118,15 @@ public class GameActivity extends AppCompatActivity{
         });
     }
 
+    private void shuffle(){
+        Collections.shuffle(Arrays.asList(cardsArray));
+        shuffleCard(ivPic1,0);
+        shuffleCard(ivPic2,1);
+        shuffleCard(ivPic3,2);
+        shuffleCard(ivPic4,3);
+        shuffleCard(ivPic5,tagPicture);
+    }
+
     private void shuffleCard(ImageView iv, int card){
         if(cardsArray[card] == 1){
             iv.setImageResource(image1);
@@ -138,11 +141,12 @@ public class GameActivity extends AppCompatActivity{
 
     private void checkCorrect(int theCard){
         if(tagPicture == theCard){
-            Toast.makeText(GameActivity.this, "Jawaban Benar", Toast.LENGTH_SHORT).show();
             stopService(new Intent(this,MyService.class));
             finish();
         } else {
-            Toast.makeText(GameActivity.this, "Jawaban Salah", Toast.LENGTH_SHORT).show();
+            shuffle();
+            llGame1.setVisibility(View.VISIBLE);
+            llGame2.setVisibility(View.GONE);
         }
     }
 
