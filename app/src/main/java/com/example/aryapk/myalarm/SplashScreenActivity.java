@@ -41,7 +41,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 requestWakeLock();
                 /*Bundle args = new Bundle();
                 args.putSerializable("alarm",alarmList);
-                Intent i = new Intent(SplashScreenActivity.this,HomeAlarmActivity.class);
                 i.putExtras(args);*/
                 Intent i = new Intent(SplashScreenActivity.this,AlarmHomeActivity.class);
                 startActivity(i);

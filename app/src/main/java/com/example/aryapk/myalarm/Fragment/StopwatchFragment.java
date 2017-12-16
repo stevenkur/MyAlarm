@@ -39,7 +39,6 @@ public class StopwatchFragment extends Fragment {
 
     ArrayAdapter<String> adapter ;
 
-    HomeAlarmActivity activity;
     View v;
     @Bind(R.id.tvStopwatch)
     TextView tvStopwatch;

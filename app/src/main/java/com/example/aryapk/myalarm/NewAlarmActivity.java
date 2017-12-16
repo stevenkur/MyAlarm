@@ -253,7 +253,7 @@ public class NewAlarmActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(activity, HomeAlarmActivity.class);
+        Intent i = new Intent(activity, AlarmHomeActivity.class);
         startActivity(i);
         finish();
     }
