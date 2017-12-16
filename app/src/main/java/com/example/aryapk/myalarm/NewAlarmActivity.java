@@ -123,22 +123,19 @@ public class NewAlarmActivity extends AppCompatActivity {
     private void insertAlarm(){
         hour = String.valueOf(tpClock.getCurrentHour());
         minute = String.valueOf(tpClock.getCurrentMinute());
-        date = String.valueOf(date);
+        Date currentTime = Calendar.getInstance().getTime();
+        date = String.valueOf(currentTime.getDay())+"/"+String.valueOf(currentTime.getMonth())+"/"+String.valueOf(currentTime.getYear());
         status = "ON";
-        name = String.valueOf(name);
+        name = tvName.getText().toString();
         path = FilePath.getPath(this, filePath);
-
-        /*dbMaster.insertData(hour, minute, date, status, name, path);*/
-        model.setDate(" ");
+        model.setDate(date);
         model.setHour(hour);
         model.setMinute(minute);
-        model.setName("Empty");
+        model.setName(name);
         model.setPath(path);
         model.setStatus(status);
-        getPreferenceListPerson();
 
         setAlarm(path);
-
     }
 
     private void createSharedPreference(){
@@ -151,7 +148,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         edt.commit();
     }
 
-    private void getPreferenceListPerson(){
+    private void getPreferenceListAlarm(){
         alarmList.removeAll(alarmList);
         SharedPreferences mySharedPreferences = getSharedPreferences("alarmDB",Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -203,7 +200,9 @@ public class NewAlarmActivity extends AppCompatActivity {
         Log.i("Path",path);
         new PlaySound(activity).execute(alarmTurnOn);*/
 
-        turnOn(path,duration);
+        model.setCountDown(turnOn(path,duration));
+        model.getCountDown().start();
+        getPreferenceListAlarm();
     }
 
     private void showFileChooser() {
@@ -223,7 +222,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         }
     }
 
-    private void turnOn(String paths, long duration){
+    private CountDownTimer turnOn(String paths, long duration){
         String path = paths;
         Log.i("path 2",path);
         final Uri songUri = Uri.parse(path);
@@ -249,28 +248,8 @@ public class NewAlarmActivity extends AppCompatActivity {
                 }
                 mediaPlayer.start();
             }
-        }.start();
-    }
-
-    public static class AlarmNameDialog extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the Builder class for convenient dialog construction
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Alarm Name")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            return builder.create();
-        }
+        };
+        return countDownTimer;
     }
 
     private void createDialog(){

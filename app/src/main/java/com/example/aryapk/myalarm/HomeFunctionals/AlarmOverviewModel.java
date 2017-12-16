@@ -1,5 +1,7 @@
 package com.example.aryapk.myalarm.HomeFunctionals;
 
+import android.os.CountDownTimer;
+
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONException;
@@ -18,6 +20,7 @@ public class AlarmOverviewModel implements Serializable {
     @SerializedName("name") private String name;
     @SerializedName("path") private String path;
     @SerializedName("status") private String status;
+    @SerializedName("countdown") private CountDownTimer countDown;
 
     public String getDate() {
         return date;
@@ -65,5 +68,13 @@ public class AlarmOverviewModel implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public CountDownTimer getCountDown() {
+        return countDown;
+    }
+
+    public void setCountDown(CountDownTimer countDown) {
+        this.countDown = countDown;
     }
 }
