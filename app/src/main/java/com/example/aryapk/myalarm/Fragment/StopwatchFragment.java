@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.aryapk.myalarm.AlarmHomeActivity;
-import com.example.aryapk.myalarm.HomeAlarmActivity;
 import com.example.aryapk.myalarm.R;
 
 import java.util.Arrays;

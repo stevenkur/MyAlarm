@@ -203,7 +203,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         }
     }
 
-    private void turnOn(String paths, long duration){
+    private CountDownTimer turnOn(String paths, long duration){
         String path = paths;
         Log.i("path 2",path);
         final Uri songUri = Uri.parse(path);
@@ -224,7 +224,8 @@ public class NewAlarmActivity extends AppCompatActivity {
                 Intent i = new Intent(activity,GameActivity.class);
                 startActivity(i);
             }
-        }.start();
+        };
+        return  countDownTimer;
     }
 
     private void createDialog(){
