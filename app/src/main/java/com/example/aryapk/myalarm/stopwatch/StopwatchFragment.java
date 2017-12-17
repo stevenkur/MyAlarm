@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm.Fragment;
+package com.example.aryapk.myalarm.stopwatch;
 
 import android.content.Context;
 import android.net.Uri;
@@ -6,20 +6,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.aryapk.myalarm.AlarmHomeActivity;
-//import com.example.aryapk.myalarm.HomeAlarmActivity;
+import com.example.aryapk.myalarm.adapters.StopwatchAdapter;
 import com.example.aryapk.myalarm.R;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -31,13 +28,13 @@ public class StopwatchFragment extends Fragment {
 
     Handler handler;
 
+    ArrayList<String> listStopwatch = new ArrayList<>();
+
+    StopwatchAdapter adapter;
+
+    Context context;
+
     int Seconds, Minutes, MilliSeconds ;
-
-    String[] ListElements = new String[] {  };
-
-    List<String> ListElementsArrayList ;
-
-    ArrayAdapter<String> adapter ;
 
     View v;
     @Bind(R.id.tvStopwatch)
@@ -50,8 +47,8 @@ public class StopwatchFragment extends Fragment {
     Button btnResetStopwatch;
     @Bind(R.id.btnSaveLapStopwatch)
     Button btnSaveLapStopwatch;
-    @Bind(R.id.lvStopwatch)
-    ListView lvStopwatch;
+    @Bind(R.id.rvListStopwatch)
+    RecyclerView rvListStopwatch;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,10 +64,13 @@ public class StopwatchFragment extends Fragment {
                     StartTime = SystemClock.uptimeMillis();
                     handler.postDelayed(runnable, 0);
                     btnResetStopwatch.setEnabled(false);
+                    btnStartStopwatch.setEnabled(false);
+                    break;
                 case R.id.btnPauseStopwatch:
                     TimeBuff += MillisecondTime;
                     handler.removeCallbacks(runnable);
                     btnResetStopwatch.setEnabled(true);
+                    break;
                 case R.id.btnResetStopwatch:
                     MillisecondTime = 0L;
                     StartTime = 0L;
@@ -80,9 +80,14 @@ public class StopwatchFragment extends Fragment {
                     Minutes = 0;
                     MilliSeconds = 0;
                     tvStopwatch.setText("00:00:00");
+                    btnStartStopwatch.setEnabled(true);
+                    rvListStopwatch.setAdapter(null);
+                    break;
                 case R.id.btnSaveLapStopwatch:
-                    ListElementsArrayList.add(tvStopwatch.getText().toString());
-                    adapter.notifyDataSetChanged();
+                    listStopwatch.add(tvStopwatch.getText().toString());
+                    adapter = new StopwatchAdapter(listStopwatch, context);
+                    rvListStopwatch.setAdapter(adapter);
+                    break;
             }
         }
     };
@@ -97,17 +102,15 @@ public class StopwatchFragment extends Fragment {
                              Bundle savedInstanceState) {
         handler = new Handler() ;
 
-//        ListElementsArrayList = new ArrayList<String>(Arrays.asList(ListElements));
-//
-//        adapter = new ArrayAdapter<String>(StopwatchFragment.this,
-//                android.R.layout.simple_list_item_1,
-//                ListElementsArrayList
-//        );
-//
-//        lvStopwatch.setAdapter(adapter);
-
         v = inflater.inflate(R.layout.fragment_stopwatch, container, false);
         ButterKnife.bind(this,v);
+        rvListStopwatch.setLayoutManager(new LinearLayoutManager(context));
+
+        btnStartStopwatch.setOnClickListener(option);
+        btnPauseStopwatch.setOnClickListener(option);
+        btnResetStopwatch.setOnClickListener(option);
+        btnSaveLapStopwatch.setOnClickListener(option);
+
         return v;
     }
 
@@ -120,6 +123,7 @@ public class StopwatchFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -146,13 +150,13 @@ public class StopwatchFragment extends Fragment {
 
             Seconds = Seconds % 60;
 
-            MilliSeconds = (int) (UpdateTime % 1000);
+            MilliSeconds = (int) (UpdateTime % 100);
 
-            tvStopwatch.setText("" + Minutes + ":"
+            tvStopwatch.setText("" + String.format("%02d", Minutes) + ":"
                     + String.format("%02d", Seconds) + ":"
-                    + String.format("%03d", MilliSeconds));
+                    + String.format("%02d", MilliSeconds));
 
-            handler.postDelayed(this, 0);
+            handler.postDelayed(this, 50);
         }
 
     };

@@ -1,24 +1,6 @@
-package com.example.aryapk.myalarm.HomeFunctionals;
+package com.example.aryapk.myalarm.adapters;
 
-import android.app.AlarmManager;
-import android.content.Context;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.google.gson.annotations.SerializedName;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Aryapk on 11/12/2017.

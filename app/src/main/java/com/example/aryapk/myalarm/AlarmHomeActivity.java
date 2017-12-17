@@ -8,9 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.aryapk.myalarm.Fragment.CountDownTimerFragment;
-import com.example.aryapk.myalarm.Fragment.ListAlarmFragment;
-import com.example.aryapk.myalarm.Fragment.StopwatchFragment;
+import com.example.aryapk.myalarm.countdown.CountDownTimerFragment;
+import com.example.aryapk.myalarm.stopwatch.StopwatchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +37,9 @@ public class AlarmHomeActivity extends AppCompatActivity {
         StopwatchFragment sf = new StopwatchFragment();
         CountDownTimerFragment ctf = new CountDownTimerFragment();
         ListAlarmFragment laf = new ListAlarmFragment();
-        adapter.addFragment(laf,"Alarm");
-        adapter.addFragment(ctf,"CountDown");
-        adapter.addFragment(sf,"StopWatch");
+        adapter.addFragment(laf, "Alarm");
+        adapter.addFragment(ctf, "CountDown");
+        adapter.addFragment(sf, "StopWatch");
         viewPager.setAdapter(adapter);
     }
 

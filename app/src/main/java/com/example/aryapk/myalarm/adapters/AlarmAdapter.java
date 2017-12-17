@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm.HomeFunctionals;
+package com.example.aryapk.myalarm.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,22 +8,20 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.aryapk.myalarm.BaseRecyclerViewAdapter;
 import com.example.aryapk.myalarm.R;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Aryapk on 11/12/2017.
  */
 
-public class HomeAlarmAdapter extends BaseRecyclerViewAdapter {
+public class AlarmAdapter extends BaseRecyclerViewAdapter {
     Context context;
-    public HomeAlarmAdapter(ArrayList<AlarmOverviewModel> items, Context context) {
+    public AlarmAdapter(ArrayList<AlarmOverviewModel> items, Context context) {
         super(items);
         this.context = context;
     }

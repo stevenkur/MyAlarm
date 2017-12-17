@@ -1,6 +1,6 @@
 package com.example.aryapk.myalarm;
 
-import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
+import com.example.aryapk.myalarm.adapters.AlarmOverviewModel;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm.Fragment;
+package com.example.aryapk.myalarm;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.aryapk.myalarm.DummyUtils;
-import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
-import com.example.aryapk.myalarm.HomeFunctionals.HomeAlarmAdapter;
-import com.example.aryapk.myalarm.NewAlarmActivity;
-import com.example.aryapk.myalarm.R;
+import com.example.aryapk.myalarm.adapters.AlarmOverviewModel;
+import com.example.aryapk.myalarm.adapters.AlarmAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,7 +34,7 @@ public class ListAlarmFragment extends Fragment {
     @Bind(R.id.btnNewAlarm)
     Button btnNewAlarm;
     ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
-    HomeAlarmAdapter adapter;
+    AlarmAdapter adapter;
     Context activity;
     int flag = 0;
 
@@ -52,6 +49,7 @@ public class ListAlarmFragment extends Fragment {
                 case R.id.btnNewAlarm:
                     Intent i = new Intent(activity, NewAlarmActivity.class);
                     startActivity(i);
+                    ((AlarmHomeActivity)activity).finish();
                     break;
             }
         }
@@ -69,12 +67,12 @@ public class ListAlarmFragment extends Fragment {
         ButterKnife.bind(this,v);
         btnNewAlarm.setOnClickListener(option);
         rvListAlarm.setLayoutManager(new LinearLayoutManager(activity));
-        getPreferenceListPerson();
+        getPreferenceListAlarm();
         return v;
     }
 
     private void setAlarm(){
-        adapter = new HomeAlarmAdapter(alarmList,activity);
+        adapter = new AlarmAdapter(alarmList,activity);
     }
 
     private void createSharedPreference(){
@@ -86,7 +84,7 @@ public class ListAlarmFragment extends Fragment {
         edt.commit();
     }
 
-    private void getPreferenceListPerson(){
+    private void getPreferenceListAlarm(){
         alarmList.removeAll(alarmList);
         SharedPreferences mySharedPreferences = getActivity().getSharedPreferences("alarmDB",Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -94,18 +92,19 @@ public class ListAlarmFragment extends Fragment {
         Type type = new TypeToken<ArrayList<AlarmOverviewModel>>(){}.getType();
         if (json != "Empty"){
             alarmList = gson.fromJson(json,type);
-            adapter = new HomeAlarmAdapter(alarmList,activity);
+            adapter = new AlarmAdapter(alarmList,activity);
             rvListAlarm.setAdapter(adapter);
         }
         else Log.i("ListAlarm","isEmpty");
-        /*setAlarm();*/
+        setAlarm();
     }
+
 
     private void dummyAlarm() {
         rvListAlarm.setLayoutManager(new LinearLayoutManager(activity));
         DummyUtils utils = new DummyUtils();
         alarmList = utils.getDummyModel();
-        adapter = new HomeAlarmAdapter(alarmList,activity);
+        adapter = new AlarmAdapter(alarmList,activity);
         rvListAlarm.setAdapter(adapter);
     }
 
