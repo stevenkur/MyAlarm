@@ -3,7 +3,6 @@ package com.example.aryapk.myalarm;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,15 +11,13 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.aryapk.myalarm.DBAlarm.DatabaseMaster;
-import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
+import com.example.aryapk.myalarm.Adapter.AlarmOverviewModel;
 
 import java.util.ArrayList;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static int splashInterval = 2000;
-    private DatabaseMaster dbMaster = new DatabaseMaster(SplashScreenActivity.this);
     private ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
     private static final int PERMISSION_CODE = 123;
 

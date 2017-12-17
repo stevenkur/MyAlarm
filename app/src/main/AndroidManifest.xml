@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".Game.GameActivity"/>
         <activity android:name=".NewAlarmActivity" />
-        <activity android:name=".HomeReminderActivity" />
         <activity android:name=".AlarmHomeActivity"></activity>
         <service android:name=".MyService"/>
     </application>

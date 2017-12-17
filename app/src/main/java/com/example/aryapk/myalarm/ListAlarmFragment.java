@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm.Fragment;
+package com.example.aryapk.myalarm;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.aryapk.myalarm.AlarmHomeActivity;
-import com.example.aryapk.myalarm.DummyUtils;
-import com.example.aryapk.myalarm.HomeFunctionals.AlarmOverviewModel;
-import com.example.aryapk.myalarm.HomeFunctionals.HomeAlarmAdapter;
-import com.example.aryapk.myalarm.NewAlarmActivity;
-import com.example.aryapk.myalarm.R;
+import com.example.aryapk.myalarm.Adapter.AlarmOverviewModel;
+import com.example.aryapk.myalarm.Adapter.AlarmAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,7 +34,7 @@ public class ListAlarmFragment extends Fragment {
     @Bind(R.id.btnNewAlarm)
     Button btnNewAlarm;
     ArrayList<AlarmOverviewModel> alarmList = new ArrayList<>();
-    HomeAlarmAdapter adapter;
+    AlarmAdapter adapter;
     Context activity;
     int flag = 0;
 
@@ -76,7 +72,7 @@ public class ListAlarmFragment extends Fragment {
     }
 
     private void setAlarm(){
-        adapter = new HomeAlarmAdapter(alarmList,activity);
+        adapter = new AlarmAdapter(alarmList,activity);
     }
 
     private void createSharedPreference(){
@@ -96,7 +92,7 @@ public class ListAlarmFragment extends Fragment {
         Type type = new TypeToken<ArrayList<AlarmOverviewModel>>(){}.getType();
         if (json != "Empty"){
             alarmList = gson.fromJson(json,type);
-            adapter = new HomeAlarmAdapter(alarmList,activity);
+            adapter = new AlarmAdapter(alarmList,activity);
             rvListAlarm.setAdapter(adapter);
         }
         else Log.i("ListAlarm","isEmpty");
@@ -108,7 +104,7 @@ public class ListAlarmFragment extends Fragment {
         rvListAlarm.setLayoutManager(new LinearLayoutManager(activity));
         DummyUtils utils = new DummyUtils();
         alarmList = utils.getDummyModel();
-        adapter = new HomeAlarmAdapter(alarmList,activity);
+        adapter = new AlarmAdapter(alarmList,activity);
         rvListAlarm.setAdapter(adapter);
     }
 

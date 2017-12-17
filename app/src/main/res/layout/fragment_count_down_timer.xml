@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.aryapk.myalarm.Fragment.CountDownTimerFragment">
+    tools:context="com.example.aryapk.myalarm.CountDownTimerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="124dp"
             android:gravity="bottom"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/blue_500"
             android:textSize="64dp"
             android:visibility="gone"
             tools:text="00:00:00" />
@@ -48,13 +48,13 @@
                     android:id="@+id/hour_picker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:np_dividerColor="@color/colorPrimary"
+                    app:np_dividerColor="@color/blue_500"
                     app:np_height="180dp"
                     app:np_max="59"
                     app:np_min="0"
-                    app:np_selectedTextColor="@color/colorPrimary"
+                    app:np_selectedTextColor="@color/blue_500"
                     app:np_selectedTextSize="30sp"
-                    app:np_textColor="@color/colorPrimary"
+                    app:np_textColor="@color/blue_500"
                     app:np_textSize="30sp"
                     app:np_value="0"
                     app:np_width="64dp" />
@@ -80,13 +80,13 @@
                     android:id="@+id/minute_picker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:np_dividerColor="@color/colorPrimary"
+                    app:np_dividerColor="@color/blue_500"
                     app:np_height="180dp"
                     app:np_max="59"
                     app:np_min="0"
-                    app:np_selectedTextColor="@color/colorPrimary"
+                    app:np_selectedTextColor="@color/blue_500"
                     app:np_selectedTextSize="30sp"
-                    app:np_textColor="@color/colorPrimary"
+                    app:np_textColor="@color/blue_500"
                     app:np_textSize="30sp"
                     app:np_value="0"
                     app:np_width="64dp" />
@@ -109,13 +109,13 @@
                     android:id="@+id/second_picker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:np_dividerColor="@color/colorPrimary"
+                    app:np_dividerColor="@color/blue_500"
                     app:np_height="180dp"
                     app:np_max="59"
                     app:np_min="0"
-                    app:np_selectedTextColor="@color/colorPrimary"
+                    app:np_selectedTextColor="@color/blue_500"
                     app:np_selectedTextSize="30sp"
-                    app:np_textColor="@color/colorPrimary"
+                    app:np_textColor="@color/blue_500"
                     app:np_textSize="30sp"
                     app:np_value="0"
                     app:np_width="64dp" />
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.57"
                     android:text="Reset"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
