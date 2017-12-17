@@ -1,13 +1,11 @@
-package com.example.aryapk.myalarm.Adapter;
+package com.example.aryapk.myalarm.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Aryapk on 11/12/2017.

@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm.Adapter;
+package com.example.aryapk.myalarm.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

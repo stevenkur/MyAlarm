@@ -8,6 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.aryapk.myalarm.countdown.CountDownTimerFragment;
+import com.example.aryapk.myalarm.stopwatch.StopwatchFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 

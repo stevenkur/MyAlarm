@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.aryapk.myalarm.Adapter.AlarmOverviewModel;
-import com.example.aryapk.myalarm.Adapter.AlarmAdapter;
+import com.example.aryapk.myalarm.adapters.AlarmOverviewModel;
+import com.example.aryapk.myalarm.adapters.AlarmAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

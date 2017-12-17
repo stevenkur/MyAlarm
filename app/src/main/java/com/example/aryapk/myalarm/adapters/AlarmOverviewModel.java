@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm.Adapter;
+package com.example.aryapk.myalarm.adapters;
 
 import java.io.Serializable;
 

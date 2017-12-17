@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm;
+package com.example.aryapk.myalarm.countdown;
 
 import android.content.Context;
 import android.content.DialogInterface;

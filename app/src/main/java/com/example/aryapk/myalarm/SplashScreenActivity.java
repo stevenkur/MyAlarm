@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.aryapk.myalarm.Adapter.AlarmOverviewModel;
+import com.example.aryapk.myalarm.adapters.AlarmOverviewModel;
 
 import java.util.ArrayList;
 

@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.aryapk.myalarm.Game.GameActivity;
-import com.example.aryapk.myalarm.Adapter.AlarmOverviewModel;
+import com.example.aryapk.myalarm.game.GameActivity;
+import com.example.aryapk.myalarm.adapters.AlarmOverviewModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

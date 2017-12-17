@@ -1,4 +1,4 @@
-package com.example.aryapk.myalarm;
+package com.example.aryapk.myalarm.stopwatch;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.aryapk.myalarm.Adapter.StopwatchAdapter;
+import com.example.aryapk.myalarm.adapters.StopwatchAdapter;
+import com.example.aryapk.myalarm.R;
 
 import java.util.ArrayList;
 
