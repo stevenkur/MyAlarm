@@ -1,9 +1,13 @@
 package com.example.aryapk.myalarm;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +25,14 @@ public class AlarmHomeActivity extends AppCompatActivity {
     @Bind(R.id.vpAlarmHome) ViewPager viewPager;
     @Bind(R.id.tabAlarmHome) TabLayout tabAlarmHome;
     protected FragmentManager fragmentManager;
+    private static final int PERMISSION_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_home);
         ButterKnife.bind(this);
+        requestStoragePermission();
         fragmentManager = getSupportFragmentManager();
         setupViewPager(viewPager);
         tabAlarmHome.setupWithViewPager(viewPager);
@@ -66,4 +72,13 @@ public class AlarmHomeActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
+    }
+
+
 }

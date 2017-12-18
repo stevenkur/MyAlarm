@@ -55,10 +55,6 @@ public class GameActivity extends AppCompatActivity implements Observer<AlarmOve
         setContentView(R.layout.activity_game);
         context = this;
 
-        /*Intent intent = new Intent(this, MyService.class);
-        intent.putExtra("uri",)*/
-
-        //startService(new Intent(this, MyService.class));
         tcTime = (TextClock) findViewById(R.id.tcTime);
         tvPoint = (TextView) findViewById(R.id.tvPoint);
 
@@ -139,6 +135,7 @@ public class GameActivity extends AppCompatActivity implements Observer<AlarmOve
 
     private void shuffle(){
         Collections.shuffle(Arrays.asList(cardsArray));
+        tagPicture = new Random().nextInt(4);
         shuffleCard(ivPic1,0);
         shuffleCard(ivPic2,1);
         shuffleCard(ivPic3,2);
@@ -161,12 +158,14 @@ public class GameActivity extends AppCompatActivity implements Observer<AlarmOve
     private void checkCorrect(int theCard){
         if(tagPicture == theCard){
             point++;
-            tvPoint.setText(point+" POINT");
             if(point==3) {
                 stopService(new Intent(this, MyService.class));
                 finish();
             }
+        } else if(point!=0) {
+                point--;
         }
+        tvPoint.setText(point+" POINT");
         shuffle();
         llGame1.setVisibility(View.VISIBLE);
         llGame2.setVisibility(View.GONE);

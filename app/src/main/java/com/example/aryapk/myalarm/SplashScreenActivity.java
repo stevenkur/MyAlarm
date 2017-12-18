@@ -34,7 +34,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                requestStoragePermission();
                 requestWakeLock();
                 /*Bundle args = new Bundle();
                 args.putSerializable("alarm",alarmList);
@@ -68,14 +67,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }
     }*/
-
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-            return;
-
-        //And finally ask for the permission
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE);
-    }
 
     private void requestWakeLock() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) == PackageManager.PERMISSION_GRANTED)
