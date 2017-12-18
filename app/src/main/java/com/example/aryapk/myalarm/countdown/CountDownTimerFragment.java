@@ -175,6 +175,7 @@ public class CountDownTimerFragment extends Fragment {
                 timeLeft = 0;
                 timer.cancel();
                 tvCountDownView.setVisibility(View.GONE);
+                btnReset.setVisibility(View.GONE);
                 llTimePicker.setVisibility(View.VISIBLE);
                 btnStart.setText("START");
             }
