@@ -163,13 +163,6 @@ public class NewAlarmActivity extends AppCompatActivity {
         long selectedSeconds = selectedHour*3600 + selectedMinute*60;
         long selectedMSecond = selectedSeconds*1000;
         long duration = selectedMSecond-currentMSecond;
-        long toSum = duration;
-        Log.i("Duration", String.valueOf(duration));
-        long hourTotal = toSum/3600000;
-        toSum = toSum - hourTotal*3600000;
-        long minuteTotal = toSum/60000;
-        Toast.makeText(this,"Alarm set for "+String.valueOf(hourTotal)+" hours and "+String.valueOf(minuteTotal)+" minutes from now",Toast.LENGTH_LONG).show();
-
         turnOn(path,duration).start();
         getPreferenceListAlarm();
     }

@@ -1,19 +1,27 @@
 package com.example.aryapk.myalarm.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.aryapk.myalarm.NewAlarmActivity;
 import com.example.aryapk.myalarm.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * Created by Aryapk on 11/12/2017.
@@ -49,6 +57,14 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
         else {
             aoh.tvAlarmMinute.setText(modelAlarm.getMinute());
         }
+        aoh.llrvListAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context,NewAlarmActivity.class);
+                context.startActivity(i);
+
+            }
+        });
         aoh.tvAlarmName.setText(modelAlarm.getName());
         aoh.tvAlarmDate.setText(modelAlarm.getDate());
         aoh.tvAlarmStatus.setText(modelAlarm.getStatus());
@@ -62,6 +78,22 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
                     /*modelAlarm.setCountDown(modelAlarm.createCountDown(context).start());
                     modelAlarm.setStatus("Active");*/
                 }
+            }
+        });
+        aoh.ivSilang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                items.remove(modelAlarm);
+                notifyDataSetChanged();
+                SharedPreferences mySharedPreferences = context.getSharedPreferences("alarmDB",Context.MODE_PRIVATE);
+                SharedPreferences.Editor edt = mySharedPreferences.edit()   ;
+                Gson gson = new Gson();
+                String json = gson.toJson(items);
+                edt.putString("alarmList",json);
+                edt.clear();
+                edt.commit();
+                edt.apply();
+
             }
         });
         aoh.llAlarmItem.setOnClickListener(new View.OnClickListener() {
@@ -85,8 +117,12 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
         TextView tvAlarmName;
         @Bind(R.id.tvAlarmStatus)
         TextView tvAlarmStatus;
+        @Bind(R.id.llrvListAlarm)
+        LinearLayout llrvListAlarm;
         @Bind(R.id.llAlarmItem)
         LinearLayout llAlarmItem;
+        @Bind(R.id.ivSilang)
+        ImageView ivSilang;
 
         public AlarmOverviewHolder(View itemView) {
             super(itemView);
