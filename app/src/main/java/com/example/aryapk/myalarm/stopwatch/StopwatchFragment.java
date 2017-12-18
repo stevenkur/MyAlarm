@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class StopwatchFragment extends Fragment {
 
-    long MillisecondTime = 0L, StartTime ;
+    long millisecondTime = 0L, startTime ;
 
     Handler handler;
 
@@ -35,7 +35,7 @@ public class StopwatchFragment extends Fragment {
 
     Context context;
 
-    int Seconds, Minutes, MilliSeconds ;
+    int seconds, minutes, milliseconds ;
 
     View v;
     @Bind(R.id.tvStopwatch)
@@ -66,13 +66,12 @@ public class StopwatchFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnStartStopwatch:
-                    StartTime = SystemClock.uptimeMillis();
+                    startTime = SystemClock.uptimeMillis();
 //                    handler.postDelayed(runnable, 0);
 //                    btnStartStopwatch.setVisibility(View.GONE);
 //                    btnPauseStopwatch.setVisibility(View.VISIBLE);
 //                    btnSaveLapStopwatch.setVisibility(View.VISIBLE);
                     StopwatchStartState stopwatchStartState = new StopwatchStartState();
-//                    runnable = stopwatchStartState.doAction(runnable, handler, btnStartStopwatch, btnPauseStopwatch, btnResetStopwatch, btnResumeStopwatch, btnSaveLapStopwatch);
                     runnable = stopwatchStartState.doAction(stopwatchModel);
                     stopwatchModel.setRunnable(runnable);
                     break;
@@ -97,11 +96,11 @@ public class StopwatchFragment extends Fragment {
                     stopwatchModel.setRunnable(runnable);
                     break;
                 case R.id.btnResetStopwatch:
-                    MillisecondTime = 0L;
-                    StartTime = 0L;
-                    Seconds = 0;
-                    Minutes = 0;
-                    MilliSeconds = 0;
+                    millisecondTime = 0L;
+                    startTime = 0L;
+                    seconds = 0;
+                    minutes = 0;
+                    milliseconds = 0;
                     tvStopwatch.setText("00:00:00");
                     btnResumeStopwatch.setVisibility(View.GONE);
                     btnStartStopwatch.setVisibility(View.VISIBLE);
@@ -182,19 +181,19 @@ public class StopwatchFragment extends Fragment {
 
         public void run() {
 
-            MillisecondTime = SystemClock.uptimeMillis() - StartTime;
+            millisecondTime = SystemClock.uptimeMillis() - startTime;
 
-            Seconds = (int) (MillisecondTime / 1000);
+            seconds = (int) (millisecondTime / 1000);
 
-            Minutes = Seconds / 60;
+            minutes = seconds / 60;
 
-            Seconds = Seconds % 60;
+            seconds = seconds % 60;
 
-            MilliSeconds = (int) (MillisecondTime % 1000 / 10);
+            milliseconds = (int) (millisecondTime % 1000 / 10);
 
-            tvStopwatch.setText("" + String.format("%02d", Minutes) + ":"
-                    + String.format("%02d", Seconds) + ":"
-                    + String.format("%02d", MilliSeconds));
+            tvStopwatch.setText("" + String.format("%02d", minutes) + ":"
+                    + String.format("%02d", seconds) + ":"
+                    + String.format("%02d", milliseconds));
 
             handler.postDelayed(this, 50);
         }
