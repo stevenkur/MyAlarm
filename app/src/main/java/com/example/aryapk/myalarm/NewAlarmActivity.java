@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.aryapk.myalarm.game.GameActivity;
 import com.example.aryapk.myalarm.adapters.AlarmOverviewModel;
+import com.example.aryapk.myalarm.game.GameNotification;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -51,6 +52,8 @@ public class NewAlarmActivity extends AppCompatActivity {
     private String hour, minute, side, date, status, name, path=" ";
     SharedPreferences sharedpreferences;
     AlarmOverviewModel model = new AlarmOverviewModel();
+    GameNotification gameNotification = new GameNotification();
+    GameActivity gameActivity = new GameActivity(this);
 
     Context activity;
     private Uri filePath;
@@ -129,6 +132,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         model.setPath(path);
         model.setStatus(status);
         setAlarm(path);
+        gameNotification.subscribe(gameActivity);
     }
 
     private void createSharedPreference(){
@@ -218,7 +222,7 @@ public class NewAlarmActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-
+                gameNotification.addNewAlarm(model);
                 Intent i = new Intent(activity,GameActivity.class);
                 startActivity(i);
             }

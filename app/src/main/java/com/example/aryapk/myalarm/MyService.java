@@ -3,6 +3,7 @@ package com.example.aryapk.myalarm;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.IntDef;
@@ -22,7 +23,12 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
+        String extra = intent.getStringExtra("extra");
+        Uri pathMusic = Uri.parse(extra);
+        if(extra.equals("default"))
+            player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
+        else
+            player = MediaPlayer.create(this, pathMusic);
         player.setLooping(true);
         player.start();
         return START_STICKY;

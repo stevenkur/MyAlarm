@@ -1,5 +1,6 @@
 package com.example.aryapk.myalarm.game;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ public class GameActivity extends AppCompatActivity implements Observer<AlarmOve
     ImageView ivPic1, ivPic2, ivPic3, ivPic4, ivPic5;
     LinearLayout llGame1, llGame2;
     int point=0;
+    Context context;
 
     //array for the images
     Integer[] cardsArray = {1, 2, 3, 4};
@@ -41,10 +43,17 @@ public class GameActivity extends AppCompatActivity implements Observer<AlarmOve
 
     int tagPicture;
 
+    public GameActivity(){}
+
+    public GameActivity(Context context){
+        this.context = context;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        context = this;
 
         /*Intent intent = new Intent(this, MyService.class);
         intent.putExtra("uri",)*/
@@ -176,8 +185,8 @@ public class GameActivity extends AppCompatActivity implements Observer<AlarmOve
     }
 
     public void playMusic(String pathMusic){
-        Intent intent = new Intent(this,MyService.class);
+        Intent intent = new Intent(context,MyService.class);
         intent.putExtra("extra",pathMusic);
-        this.startService(intent);
+        context.startService(intent);
     }
 }
