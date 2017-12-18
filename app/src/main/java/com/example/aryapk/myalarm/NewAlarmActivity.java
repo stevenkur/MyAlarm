@@ -26,9 +26,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.*;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -105,11 +108,13 @@ public class NewAlarmActivity extends AppCompatActivity {
         hour = String.valueOf(tpClock.getCurrentHour());
         minute = String.valueOf(tpClock.getCurrentMinute());
         Date currentTime = Calendar.getInstance().getTime();
-        date = String.valueOf(currentTime.getDay())+"/"+String.valueOf(currentTime.getMonth())+"/"+String.valueOf(currentTime.getYear());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        date = df.format(currentTime);
         status = "Active";
         name = tvName.getText().toString();
         path = FilePath.getPath(this, filePath);
         model.setDate(date);
+        Log.i("CurDate",date);
         model.setHour(hour);
         model.setMinute(minute);
         model.setName(name);
