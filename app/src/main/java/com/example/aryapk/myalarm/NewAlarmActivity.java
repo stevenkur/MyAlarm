@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +50,8 @@ public class NewAlarmActivity extends AppCompatActivity {
     @Bind(R.id.tvName)
     TextView tvName;
 
-    private String hour, minute, side, date, status, name, path=" ";
+    Uri defaultUri = Settings.System.DEFAULT_RINGTONE_URI;
+    private String hour, minute, side, date, status, name, path=String.valueOf(defaultUri);
     SharedPreferences sharedpreferences;
     AlarmOverviewModel model = new AlarmOverviewModel();
     GameNotification gameNotification = new GameNotification();
@@ -109,8 +111,8 @@ public class NewAlarmActivity extends AppCompatActivity {
             AlarmOverviewModel model = (AlarmOverviewModel) getIntent().getSerializableExtra("modelAlarm");
             tvName.setText(model.getName());
             path = model.getPath();
-            String[] namaFile = path.split("/");
-            tvTone.setText(namaFile[namaFile.length-1].substring(0,namaFile[namaFile.length-1].lastIndexOf('.')));
+            String[] namaFile = path.split("/");/*
+            tvTone.setText(namaFile[namaFile.length-1].substring(0,namaFile[namaFile.length-1].lastIndexOf('.')));*/
         }
 
     }
@@ -123,7 +125,9 @@ public class NewAlarmActivity extends AppCompatActivity {
         date = df.format(currentTime);
         status = "Active";
         name = tvName.getText().toString();
-        if (path==" ")path = FilePath.getPath(this, filePath);
+        if (getIntent().getSerializableExtra("modelAlarm")==null&&filePath!=null){
+            path = FilePath.getPath(this, filePath);
+        }
         model.setDate(date);
         Log.i("CurDate",date);
         model.setHour(hour);

@@ -59,10 +59,18 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
         else {
             aoh.tvAlarmMinute.setText(modelAlarm.getMinute());
         }
-        aoh.llrvListAlarm.setOnClickListener(new View.OnClickListener() {
+        aoh.tvAlarmName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items.remove(modelAlarm);
+                SharedPreferences mySharedPreferences = context.getSharedPreferences("alarmDB",Context.MODE_PRIVATE);
+                SharedPreferences.Editor edt = mySharedPreferences.edit();
+                Gson gson = new Gson();
+                String json = gson.toJson(items);
+                edt.putString("alarmList",json);
+                edt.clear();
+                edt.commit();
+                edt.apply();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable( "modelAlarm",modelAlarm);
                 Intent i = new Intent(context,NewAlarmActivity.class);
@@ -93,7 +101,7 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
                 items.remove(modelAlarm);
                 notifyDataSetChanged();
                 SharedPreferences mySharedPreferences = context.getSharedPreferences("alarmDB",Context.MODE_PRIVATE);
-                SharedPreferences.Editor edt = mySharedPreferences.edit()   ;
+                SharedPreferences.Editor edt = mySharedPreferences.edit();
                 Gson gson = new Gson();
                 String json = gson.toJson(items);
                 edt.putString("alarmList",json);
