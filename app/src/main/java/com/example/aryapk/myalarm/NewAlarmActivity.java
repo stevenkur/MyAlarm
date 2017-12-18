@@ -170,7 +170,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         long minuteTotal = toSum/60000;
         Toast.makeText(this,"Alarm set for "+String.valueOf(hourTotal)+" hours and "+String.valueOf(minuteTotal)+" minutes from now",Toast.LENGTH_LONG).show();
 
-        turnOn(path,duration);
+        turnOn(path,duration).start();
         getPreferenceListAlarm();
     }
 
