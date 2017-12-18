@@ -43,6 +43,13 @@
             android:textSize="15dp" />
     </LinearLayout>
     <TextView
+        android:id="@+id/tvAlarmName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="namaAlarm"
+        android:paddingRight="64dp"
+        android:textAlignment="viewEnd"/>
+    <TextView
         android:id="@+id/tvAlarmDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

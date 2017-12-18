@@ -49,6 +49,7 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
         else {
             aoh.tvAlarmMinute.setText(modelAlarm.getMinute());
         }
+        aoh.tvAlarmName.setText(modelAlarm.getName());
         aoh.tvAlarmDate.setText(modelAlarm.getDate());
         aoh.tvAlarmStatus.setText(modelAlarm.getStatus());
         aoh.tvAlarmStatus.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,8 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
         TextView tvAlarmTimeZone;
         @Bind(R.id.tvAlarmDate)
         TextView tvAlarmDate;
+        @Bind(R.id.tvAlarmName)
+        TextView tvAlarmName;
         @Bind(R.id.tvAlarmStatus)
         TextView tvAlarmStatus;
         @Bind(R.id.llAlarmItem)
