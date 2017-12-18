@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextClock;
+import android.widget.TextView;
 
 import com.example.aryapk.myalarm.MyService;
 import com.example.aryapk.myalarm.R;
+import com.example.aryapk.myalarm.adapters.AlarmOverviewModel;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,15 +23,18 @@ import java.util.Random;
  * Created by Andy on 12/15/2017.
  */
 
-public class GameActivity extends AppCompatActivity{
+public class GameActivity extends AppCompatActivity implements Observer<AlarmOverviewModel>{
 
     ImageView ivPic1, ivPic2, ivPic3, ivPic4, ivPic5;
     LinearLayout llGame1, llGame2;
+    int point=0;
 
     //array for the images
     Integer[] cardsArray = {1, 2, 3, 4};
 
     Button btnNext, btnBack;
+    TextClock tcTime;
+    TextView tvPoint;
 
     //images
     int image1, image2, image3, image4;
@@ -40,7 +46,12 @@ public class GameActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        startService(new Intent(this, MyService.class));
+        /*Intent intent = new Intent(this, MyService.class);
+        intent.putExtra("uri",)*/
+
+        //startService(new Intent(this, MyService.class));
+        tcTime = (TextClock) findViewById(R.id.tcTime);
+        tvPoint = (TextView) findViewById(R.id.tvPoint);
 
         btnNext = (Button) findViewById(R.id.btnNext);
         btnBack = (Button) findViewById(R.id.btnBack);
@@ -77,6 +88,8 @@ public class GameActivity extends AppCompatActivity{
                 llGame2.setVisibility(View.GONE);
             }
         });
+
+        tvPoint.setText(point + " POINT");
 
         loadImages();
 
@@ -138,13 +151,16 @@ public class GameActivity extends AppCompatActivity{
 
     private void checkCorrect(int theCard){
         if(tagPicture == theCard){
-            stopService(new Intent(this,MyService.class));
-            finish();
-        } else {
-            shuffle();
-            llGame1.setVisibility(View.VISIBLE);
-            llGame2.setVisibility(View.GONE);
+            point++;
+            tvPoint.setText(point+" POINT");
+            if(point==3) {
+                stopService(new Intent(this, MyService.class));
+                finish();
+            }
         }
+        shuffle();
+        llGame1.setVisibility(View.VISIBLE);
+        llGame2.setVisibility(View.GONE);
     }
 
     private void loadImages(){
@@ -152,5 +168,16 @@ public class GameActivity extends AppCompatActivity{
         image2 = R.drawable.pic2;
         image3 = R.drawable.pic3;
         image4 = R.drawable.pic4;
+    }
+
+    @Override
+    public void notify(AlarmOverviewModel alarmOverviewModel) {
+        playMusic(alarmOverviewModel.getPath());
+    }
+
+    public void playMusic(String pathMusic){
+        Intent intent = new Intent(this,MyService.class);
+        intent.putExtra("extra",pathMusic);
+        this.startService(intent);
     }
 }
