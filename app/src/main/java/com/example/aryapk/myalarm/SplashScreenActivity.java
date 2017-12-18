@@ -35,38 +35,12 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 requestWakeLock();
-                /*Bundle args = new Bundle();
-                args.putSerializable("alarm",alarmList);
-                i.putExtras(args);*/
                 Intent i = new Intent(SplashScreenActivity.this,AlarmHomeActivity.class);
                 startActivity(i);
                 finish();
             }
         }, splashInterval);
     }
-
-    /*private void getAlarm(){
-        Cursor result = dbMaster.selectAll();
-        AlarmOverviewModel model = new AlarmOverviewModel();
-        if (result.getCount() > 0){
-            for (int i = 0;i<result.getCount();i++){
-                if(i==0){
-                    result.moveToFirst();
-                }
-                else {
-                    result.moveToNext();
-                }
-                model.setHour(result.getString(result.getColumnIndex("hour")));
-                model.setMinute(result.getString(result.getColumnIndex("minute")));
-                model.setSide(result.getString(result.getColumnIndex("side")));
-                model.setDate(result.getString(result.getColumnIndex("date")));
-                model.setStatus(result.getString(result.getColumnIndex("status")));
-                model.setCountDown(result.getInt(result.getColumnIndex("countDown")));
-                model.setName(result.getString(result.getColumnIndex("name")));
-                alarmList.add(model);
-            }
-        }
-    }*/
 
     private void requestWakeLock() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) == PackageManager.PERMISSION_GRANTED)

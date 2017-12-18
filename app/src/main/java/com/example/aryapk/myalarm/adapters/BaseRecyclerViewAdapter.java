@@ -15,16 +15,9 @@ public abstract class BaseRecyclerViewAdapter<E> extends RecyclerView.Adapter<Re
 
     protected List<E> items;
     protected Context context;
-    protected DecimalFormat kursIndonesia;
 
     public BaseRecyclerViewAdapter(List<E> items) {
         this.items = items;
-        kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-        formatRp.setCurrencySymbol("IDR ");
-        formatRp.setMonetaryDecimalSeparator(',');
-        formatRp.setGroupingSeparator('.');
-        kursIndonesia.setDecimalFormatSymbols(formatRp);
     }
 
     @Override

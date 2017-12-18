@@ -67,30 +67,16 @@ public class StopwatchFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.btnStartStopwatch:
                     startTime = SystemClock.uptimeMillis();
-//                    handler.postDelayed(runnable, 0);
-//                    btnStartStopwatch.setVisibility(View.GONE);
-//                    btnPauseStopwatch.setVisibility(View.VISIBLE);
-//                    btnSaveLapStopwatch.setVisibility(View.VISIBLE);
                     StopwatchStartState stopwatchStartState = new StopwatchStartState();
                     runnable = stopwatchStartState.doAction(stopwatchModel);
                     stopwatchModel.setRunnable(runnable);
                     break;
                 case R.id.btnPauseStopwatch:
-//                    handler.removeCallbacks(runnable);
-//                    btnPauseStopwatch.setVisibility(View.GONE);
-//                    btnResumeStopwatch.setVisibility(View.VISIBLE);
-//                    btnResetStopwatch.setVisibility(View.VISIBLE);
-//                    btnSaveLapStopwatch.setVisibility(View.GONE);
                     StopwatchPauseState stopwatchPauseState = new StopwatchPauseState();
                     runnable = stopwatchPauseState.doAction(stopwatchModel);
                     stopwatchModel.setRunnable(runnable);
                     break;
                 case R.id.btnResumeStopwatch:
-//                    handler.postDelayed(runnable, 0);
-//                    btnResumeStopwatch.setVisibility(View.GONE);
-//                    btnResetStopwatch.setVisibility(View.GONE);
-//                    btnPauseStopwatch.setVisibility(View.VISIBLE);
-//                    btnSaveLapStopwatch.setVisibility(View.VISIBLE);
                     StopwatchResumeState stopwatchResumeState = new StopwatchResumeState();
                     runnable = stopwatchResumeState.doAction(stopwatchModel);
                     stopwatchModel.setRunnable(runnable);
