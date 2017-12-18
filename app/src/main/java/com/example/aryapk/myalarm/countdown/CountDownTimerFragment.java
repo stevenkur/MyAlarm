@@ -126,7 +126,11 @@ public class CountDownTimerFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                getActivity().startService(new Intent(getActivity(), MyService.class));
+                Bundle bundle = new Bundle();
+                bundle.putString("extra","default");
+                Intent intent = new Intent(getContext(),MyService.class);
+                intent.putExtras(bundle);
+                getActivity().startService(intent);
                 createDialog();
             }
         };
