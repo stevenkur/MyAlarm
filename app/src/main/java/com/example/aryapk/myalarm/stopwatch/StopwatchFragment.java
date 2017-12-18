@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.aryapk.myalarm.adapters.StopwatchAdapter;
 import com.example.aryapk.myalarm.R;
+import com.example.aryapk.myalarm.adapters.StopwatchModel;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class StopwatchFragment extends Fragment {
 
-    long MillisecondTime, StartTime, TimeBuff, UpdateTime = 0L ;
+    long MillisecondTime = 0L, StartTime ;
 
     Handler handler;
 
@@ -47,8 +48,12 @@ public class StopwatchFragment extends Fragment {
     Button btnResetStopwatch;
     @Bind(R.id.btnSaveLapStopwatch)
     Button btnSaveLapStopwatch;
+    @Bind(R.id.btnResumeStopwatch)
+    Button btnResumeStopwatch;
     @Bind(R.id.rvListStopwatch)
     RecyclerView rvListStopwatch;
+
+    StopwatchModel stopwatchModel = new StopwatchModel();
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,26 +67,49 @@ public class StopwatchFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.btnStartStopwatch:
                     StartTime = SystemClock.uptimeMillis();
-                    handler.postDelayed(runnable, 0);
-                    btnResetStopwatch.setEnabled(false);
-                    btnStartStopwatch.setEnabled(false);
+//                    handler.postDelayed(runnable, 0);
+//                    btnStartStopwatch.setVisibility(View.GONE);
+//                    btnPauseStopwatch.setVisibility(View.VISIBLE);
+//                    btnSaveLapStopwatch.setVisibility(View.VISIBLE);
+                    StopwatchStartState stopwatchStartState = new StopwatchStartState();
+//                    runnable = stopwatchStartState.doAction(runnable, handler, btnStartStopwatch, btnPauseStopwatch, btnResetStopwatch, btnResumeStopwatch, btnSaveLapStopwatch);
+                    runnable = stopwatchStartState.doAction(stopwatchModel);
+                    stopwatchModel.setRunnable(runnable);
                     break;
                 case R.id.btnPauseStopwatch:
-                    TimeBuff += MillisecondTime;
-                    handler.removeCallbacks(runnable);
-                    btnResetStopwatch.setEnabled(true);
+//                    handler.removeCallbacks(runnable);
+//                    btnPauseStopwatch.setVisibility(View.GONE);
+//                    btnResumeStopwatch.setVisibility(View.VISIBLE);
+//                    btnResetStopwatch.setVisibility(View.VISIBLE);
+//                    btnSaveLapStopwatch.setVisibility(View.GONE);
+                    StopwatchPauseState stopwatchPauseState = new StopwatchPauseState();
+                    runnable = stopwatchPauseState.doAction(stopwatchModel);
+                    stopwatchModel.setRunnable(runnable);
+                    break;
+                case R.id.btnResumeStopwatch:
+//                    handler.postDelayed(runnable, 0);
+//                    btnResumeStopwatch.setVisibility(View.GONE);
+//                    btnResetStopwatch.setVisibility(View.GONE);
+//                    btnPauseStopwatch.setVisibility(View.VISIBLE);
+//                    btnSaveLapStopwatch.setVisibility(View.VISIBLE);
+                    StopwatchResumeState stopwatchResumeState = new StopwatchResumeState();
+                    runnable = stopwatchResumeState.doAction(stopwatchModel);
+                    stopwatchModel.setRunnable(runnable);
                     break;
                 case R.id.btnResetStopwatch:
                     MillisecondTime = 0L;
                     StartTime = 0L;
-                    TimeBuff = 0L;
-                    UpdateTime = 0L;
                     Seconds = 0;
                     Minutes = 0;
                     MilliSeconds = 0;
                     tvStopwatch.setText("00:00:00");
-                    btnStartStopwatch.setEnabled(true);
-                    rvListStopwatch.setAdapter(null);
+                    btnResumeStopwatch.setVisibility(View.GONE);
+                    btnStartStopwatch.setVisibility(View.VISIBLE);
+                    btnResetStopwatch.setVisibility(View.GONE);
+                    btnPauseStopwatch.setVisibility(View.GONE);
+                    btnSaveLapStopwatch.setVisibility(View.GONE);
+                    listStopwatch.removeAll(listStopwatch);
+                    if (adapter!=null)adapter.notifyDataSetChanged();
                     break;
                 case R.id.btnSaveLapStopwatch:
                     listStopwatch.add(tvStopwatch.getText().toString());
@@ -110,6 +138,20 @@ public class StopwatchFragment extends Fragment {
         btnPauseStopwatch.setOnClickListener(option);
         btnResetStopwatch.setOnClickListener(option);
         btnSaveLapStopwatch.setOnClickListener(option);
+        btnResumeStopwatch.setOnClickListener(option);
+
+        btnResetStopwatch.setVisibility(View.GONE);
+        btnPauseStopwatch.setVisibility(View.GONE);
+        btnSaveLapStopwatch.setVisibility(View.GONE);
+        btnResumeStopwatch.setVisibility(View.GONE);
+
+        stopwatchModel.setRunnable(runnable);
+        stopwatchModel.setHandler(handler);
+        stopwatchModel.setBtnStartStopwatch(btnStartStopwatch);
+        stopwatchModel.setBtnPauseStopwatch(btnPauseStopwatch);
+        stopwatchModel.setBtnResumeStopwatch(btnResumeStopwatch);
+        stopwatchModel.setBtnResetStopwatch(btnResetStopwatch);
+        stopwatchModel.setBtnSaveLapStopwatch(btnSaveLapStopwatch);
 
         return v;
     }
@@ -142,15 +184,13 @@ public class StopwatchFragment extends Fragment {
 
             MillisecondTime = SystemClock.uptimeMillis() - StartTime;
 
-            UpdateTime = TimeBuff + MillisecondTime;
-
-            Seconds = (int) (UpdateTime / 1000);
+            Seconds = (int) (MillisecondTime / 1000);
 
             Minutes = Seconds / 60;
 
             Seconds = Seconds % 60;
 
-            MilliSeconds = (int) (UpdateTime % 100);
+            MilliSeconds = (int) (MillisecondTime % 1000 / 10);
 
             tvStopwatch.setText("" + String.format("%02d", Minutes) + ":"
                     + String.format("%02d", Seconds) + ":"

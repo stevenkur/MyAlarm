@@ -12,44 +12,50 @@
         android:text="@string/hello_blank_fragment" /> -->
 
     <TextView
-        android:text="00:00:00"
+        android:id="@+id/tvStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/tvStopwatch"
+        android:text="00:00:00"
+        android:textColor="@color/blue_500"
         android:textSize="85dp"
-        android:textStyle="bold"
-        android:textColor="@color/blue_500" />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btnStartStopwatch"
-            android:text="START"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="START" />
+
+        <Button
             android:id="@+id/btnPauseStopwatch"
-            android:text="PAUSE"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PAUSE" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/btnResumeStopwatch"
+            android:text="RESUME"/>
+
+        <Button
             android:id="@+id/btnResetStopwatch"
-            android:text="RESET"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="RESET" />
+
+        <Button
             android:id="@+id/btnSaveLapStopwatch"
-            android:text="SAVE LAP"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAVE LAP" />
 
     </LinearLayout>
 
