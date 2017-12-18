@@ -1,6 +1,10 @@
 package com.example.aryapk.myalarm.countdown;
 
-import android.content.Context;
+import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * Created by Farhan Ramadhana on 12/18/2017.
@@ -8,7 +12,10 @@ import android.content.Context;
 
 public class CountDownTimerStopState implements CountDownTimerState {
     @Override
-    public void doAction(Context context) {
-
+    public CountDownTimer doAction(CountDownTimer countDownTimer, TextView tvCountDownView, LinearLayout llTimePicker, Button btnStart, Button btnReset) {
+        btnReset.setVisibility(View.VISIBLE);
+        countDownTimer.cancel();
+        btnStart.setText("CONTINUE");
+        return countDownTimer;
     }
 }
