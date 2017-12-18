@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.aryapk.myalarm.AlarmHomeActivity;
 import com.example.aryapk.myalarm.NewAlarmActivity;
 import com.example.aryapk.myalarm.R;
 import com.google.gson.Gson;
@@ -60,8 +62,13 @@ public class AlarmAdapter extends BaseRecyclerViewAdapter {
         aoh.llrvListAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                items.remove(modelAlarm);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable( "modelAlarm",modelAlarm);
                 Intent i = new Intent(context,NewAlarmActivity.class);
+                i.putExtras(bundle);
                 context.startActivity(i);
+                ((AlarmHomeActivity)context).finish();
 
             }
         });

@@ -45,7 +45,7 @@ public class NewAlarmActivity extends AppCompatActivity {
     @Bind(R.id.tvName)
     TextView tvName;
 
-    private String hour, minute, side, date, status, name, path;
+    private String hour, minute, side, date, status, name, path=" ";
     SharedPreferences sharedpreferences;
     AlarmOverviewModel model = new AlarmOverviewModel();
 
@@ -99,6 +99,14 @@ public class NewAlarmActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(option);
         tvTone.setOnClickListener(options);
         tvName.setOnClickListener(options);
+        if(getIntent().getSerializableExtra("modelAlarm")!=null){
+            AlarmOverviewModel model = (AlarmOverviewModel) getIntent().getSerializableExtra("modelAlarm");
+            tvName.setText(model.getName());
+            path = model.getPath();
+            String[] namaFile = path.split("/");
+            tvTone.setText(namaFile[namaFile.length-1].substring(0,namaFile[namaFile.length-1].lastIndexOf('.')));
+        }
+
     }
 
     private void insertAlarm(){
@@ -108,7 +116,7 @@ public class NewAlarmActivity extends AppCompatActivity {
         date = String.valueOf(currentTime.getDay())+"/"+String.valueOf(currentTime.getMonth())+"/"+String.valueOf(currentTime.getYear());
         status = "Active";
         name = tvName.getText().toString();
-        path = FilePath.getPath(this, filePath);
+        if (path==" ")path = FilePath.getPath(this, filePath);
         model.setDate(date);
         model.setHour(hour);
         model.setMinute(minute);
