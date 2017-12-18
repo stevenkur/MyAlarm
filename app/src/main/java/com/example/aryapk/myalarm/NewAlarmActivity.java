@@ -189,6 +189,10 @@ public class NewAlarmActivity extends AppCompatActivity {
         if (requestCode == PICK_SOUND_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
         }
+        String[] paths = FilePath.getPath(this, filePath).split("/");
+        Log.i("Selected File Name",paths[paths.length-1]);
+        /*String[] fileName = paths[paths.length-1].split(".");*/
+        tvTone.setText(paths[paths.length-1].substring(0,paths[paths.length-1].lastIndexOf('.')));
     }
 
     private CountDownTimer turnOn(String paths, long duration){

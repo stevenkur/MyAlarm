@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="Alarm Name"
                     android:textSize="20sp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:textStyle="bold" />
 
                 <TextView
@@ -57,7 +57,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:text="Alarm Tone"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Morning Flower"
+                    android:text="Default Ringtone"
                     android:textColor="@color/blue_500"/>
             </LinearLayout>
 
